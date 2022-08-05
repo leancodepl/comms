@@ -55,6 +55,7 @@ mixin Listener<Message> {
   @protected
   @mustCallSuper
   void listen() {
+    print('test');
     _id = _MessageSinkRegister().add(_messageStreamController.sink);
     _messageSubscription = _messageStreamController.stream.listen(onMessage);
   }
