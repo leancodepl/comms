@@ -1,0 +1,42 @@
+name: prepare
+
+on:
+  push:
+    branches: [master]
+    tags-ignore: ["-v*"]
+  pull_request:
+    branches: [master]
+
+jobs:
+  main:
+    name: Dart ${{ matrix.sdk }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        sdk: [2.16.2, stable, beta]
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v3
+
+      - name: Install Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: ${{ matrix.sdk }}
+
+      - name: dart version
+        run: dart --version
+
+      - name: dart pub get
+        run: dart pub get
+
+      - name: dart analyze
+        run: dart analyze
+
+      - name: dart test
+        run: dart test
+
+      - name: dart format
+        run: dart format --set-exit-if-changed .
