@@ -15,28 +15,34 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        include:
+          - version: 2.10.5
+          - channel: stable
+          - channel: beta
+
+    strategy:
+      fail-fast: false
+      matrix:
         sdk: [2.16.2, stable, beta]
 
     steps:
       - name: Clone repository
         uses: actions/checkout@v3
 
-      - name: Install Dart
-        uses: dart-lang/setup-dart@v1
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
         with:
-          sdk: ${{ matrix.sdk }}
+          channel: ${{ matrix.channel }}
+          flutter-version: ${{ matrix.version }}
 
-      - name: dart version
-        run: dart --version
+      - name: flutter pub get
+        run: flutter pub get
 
-      - name: dart pub get
-        run: dart pub get
+      - name: flutter analyze
+        run: flutter analyze
 
-      - name: dart analyze
-        run: dart analyze
+      - name: flutter test
+        run: flutter test
 
-      - name: dart test
-        run: dart test
-
-      - name: dart format
-        run: dart format --set-exit-if-changed .
+      - name: flutter format
+        run: flutter format --set-exit-if-changed .
