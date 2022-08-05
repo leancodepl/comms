@@ -9,7 +9,7 @@ on:
 
 jobs:
   main:
-    name: Dart ${{ matrix.sdk }}
+    name: Flutter ${{ matrix.channel }}${{ matrix.version }}
     runs-on: ubuntu-latest
 
     strategy:
@@ -19,11 +19,6 @@ jobs:
           - version: 2.10.5
           - channel: stable
           - channel: beta
-
-    strategy:
-      fail-fast: false
-      matrix:
-        sdk: [2.16.2, stable, beta]
 
     steps:
       - name: Clone repository
