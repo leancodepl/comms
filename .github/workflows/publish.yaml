@@ -27,7 +27,6 @@ jobs:
       - name: Set version data
         run: |
           tag=${{ github.ref_name }}
-          prefix=-v
           version=${tag#"$prefix"}
           echo "version: $version"
           echo "VERSION=$version" >> $GITHUB_ENV
