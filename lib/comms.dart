@@ -3,7 +3,7 @@ library comms;
 import 'dart:async';
 
 import 'package:bloc/bloc.dart' show Cubit;
-import 'package:flutter/foundation.dart' show protected;
+import 'package:flutter/foundation.dart' show protected, visibleForTesting;
 import 'package:flutter/material.dart' show mustCallSuper;
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:logging/logging.dart';
@@ -12,6 +12,7 @@ import 'package:uuid/uuid.dart';
 typedef Send<Message> = void Function(Message message);
 typedef OnMessage<Message> = void Function(Message message);
 
+@visibleForTesting
 class MessageSinkRegister {
   factory MessageSinkRegister() => _instance;
 
@@ -34,7 +35,7 @@ class MessageSinkRegister {
     final sink = _messageSinks.remove(id);
     _logger.info('Removed sink ${sink.runtimeType}');
   }
-
+  
   List<StreamSink<Message>> getSinksOfType<Message>() {
     final sinks =
         _messageSinks.values.whereType<StreamSink<Message>>().toList();
