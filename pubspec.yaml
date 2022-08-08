@@ -11,7 +11,7 @@ dependencies:
   bloc: ^8.0.1
   flutter:
     sdk: flutter
-  flutter_hooks: ^0.18.5+1
+  flutter_hooks: ^0.18.2
   logging: ^1.0.2
   uuid: ^3.0.6
 
