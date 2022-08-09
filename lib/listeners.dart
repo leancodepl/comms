@@ -28,6 +28,7 @@ mixin Listener<Message> {
     if (_id != null) {
       MessageSinkRegister()._remove(_id!);
       _messageSubscription?.cancel();
+      _id = null;
     }
   }
 }
