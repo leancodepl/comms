@@ -9,6 +9,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:logging/logging.dart';
 import 'package:uuid/uuid.dart';
 
+export 'widgets/message_listener.dart';
+
 typedef Send<Message> = void Function(Message message);
 typedef OnMessage<Message> = void Function(Message message);
 
@@ -35,7 +37,7 @@ class MessageSinkRegister {
     final sink = _messageSinks.remove(id);
     _logger.info('Removed sink ${sink.runtimeType}');
   }
-  
+
   List<StreamSink<Message>> getSinksOfType<Message>() {
     final sinks =
         _messageSinks.values.whereType<StreamSink<Message>>().toList();
