@@ -48,5 +48,5 @@ jobs:
       - name: Create release
         uses: softprops/action-gh-release@v1
         with:
-          name: "-${{ env.VERSION }}"
+          name: "${{ env.VERSION }}"
           prerelease: ${{ env.IS_PRERELEASE }}
