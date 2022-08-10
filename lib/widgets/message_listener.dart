@@ -1,7 +1,6 @@
 import 'package:comms/comms.dart';
 import 'package:flutter/material.dart' hide Listener;
 import 'package:nested/nested.dart';
-import 'package:provider/provider.dart';
 
 mixin MessageListenerSingleChildWidget on SingleChildWidget {}
 
@@ -46,10 +45,10 @@ class _MessageListenerState<Message> extends SingleChildState<MessageListener>
   }
 }
 
-class MultiMessageListener extends MultiProvider {
+class MultiMessageListener extends Nested {
   MultiMessageListener({
     Key? key,
     required List<MessageListenerSingleChildWidget> listeners,
     required Widget child,
-  }) : super(key: key, providers: listeners, child: child);
+  }) : super(key: key, children: listeners, child: child);
 }
