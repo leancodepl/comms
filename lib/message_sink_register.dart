@@ -1,10 +1,10 @@
 part of 'comms.dart';
 
-/// Responsible for allowing communication between [Listener] and [Sender] of 
+/// Responsible for allowing communication between [Listener] and [Sender] of
 /// the same type, without the need of them knowing about each other.
 @visibleForTesting
 class MessageSinkRegister {
-  /// Singleton constructor, there should be only one [MessageSinkRegister] in 
+  /// Singleton constructor, there should be only one [MessageSinkRegister] in
   /// the system.
   factory MessageSinkRegister() => _instance;
 
@@ -37,7 +37,7 @@ class MessageSinkRegister {
   }
 
   /// Returns all sinks in [MessageSinkRegister]'s [_messageSinks] of type
-  /// [Message]
+  /// of the type argument [Message]
   @visibleForTesting
   List<StreamSink<Message>> getSinksOfType<Message>() {
     final sinks =
