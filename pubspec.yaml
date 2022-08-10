@@ -1,6 +1,6 @@
 name: comms
 description: Simple communication pattern abstraction on streams, specifically created for bloc to bloc communication.
-version: 0.0.3
+version: 0.0.4
 homepage: https://github.com/leancodepl/comms
 
 environment:

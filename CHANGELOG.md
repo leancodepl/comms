@@ -1,3 +1,7 @@
+## 0.0.4
+
+- Add ListenerBloc, MessageListener and MultiMessageListener widget
+
 ## 0.0.3
 
 - Downgrade flutter_hooks to 0.18.2, add tests
