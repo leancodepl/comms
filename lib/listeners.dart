@@ -78,6 +78,7 @@ void useListener<Message>(
   useEffect(
     () => () {
       MessageSinkRegister()._remove(id);
+      messageStreamController.close();
       messageSubscription.cancel();
     },
     keys ?? [],
