@@ -10,7 +10,7 @@ mixin Listener<Message> {
   String? _id;
 
   @protected
-  @mustCallSuper
+  @nonVirtual
   void listen() {
     if (_id != null) {
       cancel();
@@ -23,7 +23,7 @@ mixin Listener<Message> {
   void onMessage(Message message);
 
   @protected
-  @mustCallSuper
+  @nonVirtual
   void cancel() {
     if (_id != null) {
       MessageSinkRegister()._remove(_id!);

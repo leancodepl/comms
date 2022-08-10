@@ -4,7 +4,7 @@ typedef Send<Message> = void Function(Message message);
 
 mixin Sender<Message> {
   @protected
-  @mustCallSuper
+  @nonVirtual
   void send(Message message) {
     MessageSinkRegister().getSinksOfType<Message>().forEach(
           (sink) => sink.add(message),
