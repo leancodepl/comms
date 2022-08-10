@@ -11,7 +11,7 @@ class MessageSinkRegister {
   final _logger = Logger('MessageSinkRegister');
   final _uuid = const Uuid();
   final _messageSinks = <String, StreamSink>{};
-  
+
   String _add(StreamSink sink) {
     final id = _uuid.v1();
     _messageSinks[id] = sink;
@@ -22,6 +22,7 @@ class MessageSinkRegister {
   void _remove(String id) {
     final sink = _messageSinks.remove(id);
     _logger.info('Removed sink ${sink.runtimeType}');
+    sink?.close();
   }
 
   @visibleForTesting

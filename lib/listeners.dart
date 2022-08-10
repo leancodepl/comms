@@ -3,9 +3,9 @@ part of 'comms.dart';
 typedef OnMessage<Message> = void Function(Message message);
 
 mixin Listener<Message> {
-  final _messageStreamController = StreamController<Message>();
+  late final StreamController<Message> _messageStreamController;
 
-  late final StreamSubscription<Message>? _messageSubscription;
+  late final StreamSubscription<Message> _messageSubscription;
 
   String? _id;
 
@@ -15,6 +15,7 @@ mixin Listener<Message> {
     if (_id != null) {
       cancel();
     }
+    _messageStreamController = StreamController<Message>();
     _id = MessageSinkRegister()._add(_messageStreamController.sink);
     _messageSubscription = _messageStreamController.stream.listen(onMessage);
   }
@@ -27,7 +28,8 @@ mixin Listener<Message> {
   void cancel() {
     if (_id != null) {
       MessageSinkRegister()._remove(_id!);
-      _messageSubscription?.cancel();
+      _messageStreamController.close();
+      _messageSubscription.cancel();
       _id = null;
     }
   }
