@@ -1,11 +1,11 @@
 part of 'comms.dart';
 
-/// Signature for callbacks sending message to [Listener]'s of type of the type
-/// parameter [Message]
+/// Signature for functions sending message to [Listener]s listening for type
+/// [Message].
 typedef Send<Message> = void Function(Message message);
 
-/// A mixin used on classes that want to send messages of type given by the
-/// type argument [Message], by providing [send] function.
+/// A mixin used on classes that want to send messages of type [Message], by
+/// providing [send] function.
 ///
 /// See also:
 ///

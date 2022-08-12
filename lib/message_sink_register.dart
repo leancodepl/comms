@@ -4,8 +4,9 @@ part of 'comms.dart';
 /// without the need of them knowing about each other.
 @visibleForTesting
 class MessageSinkRegister {
-  /// Singleton constructor, there should be only one [MessageSinkRegister] in
-  /// the system.
+  /// A singleton constructor.
+  ///
+  /// There's no need for more than a single [MessageSinkRegister] to exist.
   factory MessageSinkRegister() => _instance;
 
   MessageSinkRegister._();
@@ -17,7 +18,7 @@ class MessageSinkRegister {
   /// Used to create unique id for each message sink added with [_add].
   final _uuid = const Uuid();
 
-  /// All message sinks and their id's in the system added with [_add].
+  /// All message sinks and their id's added with [_add].
   final _messageSinks = <String, StreamSink>{};
 
   /// Adds a [messageSink] to [MessageSinkRegister]'s [_messageSinks] with

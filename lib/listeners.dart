@@ -3,34 +3,34 @@ part of 'comms.dart';
 /// Signature for callbacks that are run when a message is received.
 typedef OnMessage<Message> = void Function(Message message);
 
-/// A mixin used on classes that want to receive messages of type given by the
-/// type argument [Message].
+/// A mixin used on classes that want to receive messages of type [Message].
 ///
-/// Subclasses should call [listen] when they want to start receiving messages and
-/// [cancel] when they don't want to receive messages anymore.
+/// Subclasses must call [listen] when they want to start receiving messages and
+/// [cancel] when they want to stop receiving messages.
 ///
 /// Subclasses must implement [onMessage].
 ///
 /// See also:
 ///
-///  * [ListenerCubit], class extending [Cubit], which handles calling [listen]
-/// and [cancel] itself.
-///  * [ListenerBloc], class extending [Bloc], which handles calling [listen]
-/// and [cancel] itself.
+///  * [ListenerCubit], a class extending [Cubit] which handles calling [listen]
+/// and [cancel] automatically.
+///  * [ListenerBloc], a class extending [Bloc] which handles calling [listen]
+/// and [cancel] automatically.
 ///  * [useMessageListener], hook that can be used in the build method of [HookWidget]
 mixin Listener<Message> {
   late final StreamController<Message> _messageStreamController;
 
   late final StreamSubscription<Message> _messageSubscription;
 
-  /// Id of the [Listener]'s messageSink in [MessageSinkRegister].
+  /// Unique identifier of the [Listener]'s messageSink in [MessageSinkRegister].
   String? _id;
 
   /// Starts message receiving.
   ///
   /// Registers message sink in [MessageSinkRegister].
   ///
-  /// When called second time calls [cancel] first.
+  /// If this [Listener]s message sink is already registered, it's automatically
+  /// unregistered first.
   @protected
   @nonVirtual
   void listen() {
@@ -46,7 +46,7 @@ mixin Listener<Message> {
   @protected
   void onMessage(Message message);
 
-  /// Stops message receiving.
+  /// Stops receiving messages.
   ///
   /// Removes message sink from [MessageSinkRegister].
   ///
@@ -99,8 +99,7 @@ abstract class ListenerBloc<Event, State, Message> extends Bloc<Event, State>
   }
 }
 
-/// Calls [onMessage] everytime a message of type of the type argument
-/// [Message] is received.
+/// Calls [onMessage] everytime a message of type [Message] is received.
 ///
 /// Works similarly to [Listener] but handles starting receiving messages and
 /// cleaning up itself.
