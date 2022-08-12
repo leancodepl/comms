@@ -65,7 +65,7 @@ mixin Listener<Message> {
 
 /// Handles [Listener]'s [listen] and [close]. Use instead of [Cubit].
 ///
-/// Type parameter [Message] marks what type of messages can be received.
+/// Type argument [Message] marks what type of messages can be received.
 abstract class ListenerCubit<State, Message> extends Cubit<State>
     with Listener<Message> {
   ListenerCubit(State initialState) : super(initialState) {
@@ -84,7 +84,7 @@ abstract class ListenerCubit<State, Message> extends Cubit<State>
 ///
 /// Use instead of [Bloc], if your Bloc already extends different
 ///
-/// Type parameter [Message] marks what type of messages can be received.
+/// Type argument [Message] marks what type of messages can be received.
 abstract class ListenerBloc<Event, State, Message> extends Bloc<Event, State>
     with Listener<Message> {
   ListenerBloc(State initialState) : super(initialState) {
@@ -99,7 +99,7 @@ abstract class ListenerBloc<Event, State, Message> extends Bloc<Event, State>
   }
 }
 
-/// Calls [onMessage] everytime a message of type of the type parameter
+/// Calls [onMessage] everytime a message of type of the type argument
 /// [Message] is received.
 ///
 /// Works similarly to [Listener] but handles starting receiving messages and

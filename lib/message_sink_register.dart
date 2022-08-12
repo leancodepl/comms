@@ -1,7 +1,7 @@
 part of 'comms.dart';
 
-/// Responsible for allowing communication between [Listener] and [Sender] of
-/// the same type, without the need of them knowing about each other.
+/// Allows communication between [Listener]'s and [Sender]'s of the same type,
+/// without the need of them knowing about each other.
 @visibleForTesting
 class MessageSinkRegister {
   /// Singleton constructor, there should be only one [MessageSinkRegister] in
