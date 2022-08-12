@@ -1,3 +1,3 @@
 # comms
 
-Simple communication pattern abstraction on streams.
+Simple communication pattern abstraction on streams, specifically created for bloc to bloc communication.
