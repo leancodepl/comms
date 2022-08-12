@@ -1,4 +1,4 @@
-part of 'comms.dart';
+part of '../comms.dart';
 
 /// Signature for functions sending message to [Listener]s listening for type
 /// [Message].

@@ -1,12 +1,16 @@
-name: publish
+name: comms publish
 
 on:
   push:
-    tags: ["v*"]
+    tags: ["comms-v*"]
 
 jobs:
   main:
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: packages/comms
 
     steps:
       - name: Clone repository
@@ -27,6 +31,7 @@ jobs:
       - name: Set version data
         run: |
           tag=${{ github.ref_name }}
+          prefix=comms-v
           version=${tag#"$prefix"}
           echo "version: $version"
           echo "VERSION=$version" >> $GITHUB_ENV
@@ -48,5 +53,5 @@ jobs:
       - name: Create release
         uses: softprops/action-gh-release@v1
         with:
-          name: "${{ env.VERSION }}"
+          name: "comms-v${{ env.VERSION }}"
           prerelease: ${{ env.IS_PRERELEASE }}
