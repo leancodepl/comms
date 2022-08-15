@@ -2,6 +2,7 @@ part of '../comms.dart';
 
 /// Allows communication between [Listener]'s and [Sender]'s of the same type,
 /// without the need of them knowing about each other.
+@visibleForTesting
 class MessageSinkRegister {
   /// A singleton constructor.
   ///
@@ -14,15 +15,15 @@ class MessageSinkRegister {
 
   final _logger = Logger('MessageSinkRegister');
 
-  /// Used to create unique id for each message sink added with [add].
+  /// Used to create unique id for each message sink added with [_add].
   final _uuid = const Uuid();
 
-  /// All message sinks and their id's added with [add].
+  /// All message sinks and their id's added with [_add].
   final _messageSinks = <String, StreamSink>{};
 
   /// Adds a [messageSink] to [MessageSinkRegister]'s [_messageSinks] with
   /// unique id from [_uuid]
-  String add(StreamSink messageSink) {
+  String _add(StreamSink messageSink) {
     final id = _uuid.v1();
     _messageSinks[id] = messageSink;
     _logger.info('Added sink ${messageSink.runtimeType}');
@@ -30,7 +31,7 @@ class MessageSinkRegister {
   }
 
   /// Removes messageSink with [id] from [MessageSinkRegister]'s [_messageSinks]
-  void remove(String id) {
+  void _remove(String id) {
     final sink = _messageSinks.remove(id);
     _logger.info('Removed sink ${sink.runtimeType}');
     sink?.close();
@@ -38,6 +39,7 @@ class MessageSinkRegister {
 
   /// Returns all sinks in [MessageSinkRegister]'s [_messageSinks] of type
   /// of the type argument [Message]
+  @visibleForTesting
   List<StreamSink<Message>> getSinksOfType<Message>() {
     final sinks =
         _messageSinks.values.whereType<StreamSink<Message>>().toList();

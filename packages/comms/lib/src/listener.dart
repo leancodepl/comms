@@ -30,7 +30,7 @@ mixin Listener<Message> {
       cancel();
     }
     _messageStreamController = StreamController<Message>();
-    _id = MessageSinkRegister().add(_messageStreamController.sink);
+    _id = MessageSinkRegister()._add(_messageStreamController.sink);
     _messageSubscription = _messageStreamController.stream.listen(onMessage);
   }
 
@@ -47,7 +47,7 @@ mixin Listener<Message> {
   @nonVirtual
   void cancel() {
     if (_id != null) {
-      MessageSinkRegister().remove(_id!);
+      MessageSinkRegister()._remove(_id!);
       _messageStreamController.close();
       _messageSubscription.cancel();
       _id = null;
