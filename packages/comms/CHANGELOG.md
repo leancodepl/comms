@@ -1,3 +1,7 @@
+## 0.0.5
+
+- Add documentation, stop depending on flutter
+
 ## 0.0.4
 
 - Add ListenerBloc, MessageListener and MultiMessageListener widget
