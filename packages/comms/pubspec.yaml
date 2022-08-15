@@ -1,6 +1,6 @@
 name: comms
 description: Simple communication pattern abstraction on streams, created for communication between logic classes.
-version: 0.0.4
+version: 0.0.5
 homepage: https://github.com/leancodepl/comms
 
 environment:
