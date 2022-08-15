@@ -1,4 +1,4 @@
-part of 'comms.dart';
+part of '../comms.dart';
 
 /// Allows communication between [Listener]'s and [Sender]'s of the same type,
 /// without the need of them knowing about each other.

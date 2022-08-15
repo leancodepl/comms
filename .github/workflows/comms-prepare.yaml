@@ -1,0 +1,50 @@
+name: comms prepare
+
+on:
+  push:
+    branches: [master]
+    tags-ignore: ["comms-v*"]
+    paths:
+      - "packages/comms/**"
+  pull_request:
+    branches: [master]
+    path:
+      - "packages/comms/**"
+
+jobs:
+  main:
+    name: Dart ${{ matrix.sdk }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix: 
+        sdk: [2.16.2, stable, beta]
+    
+    defaults:
+      run:
+        working-directory: packages/comms
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v3
+
+      - name: Install Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: ${{ matrix.sdk }}
+
+      - name: dart version
+        run: dart --version
+
+      - name: dart pub get
+        run: dart pub get
+
+      - name: dart analyze
+        run: dart analyze
+
+      - name: dart test
+        run: dart test
+
+      - name: dart format
+        run: dart format --set-exit-if-changed .

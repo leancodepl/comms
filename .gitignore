@@ -1,21 +1,7 @@
-*.class
-*.log
-*.pyc
-*.swp
 .DS_Store
-.atom/
-.buildlog/
-.history
-.svn/
-migrate_working_dir/
+.idea
 
-*.iml
-*.ipr
-*.iws
-.idea/
+.flutter-plugins
+.flutter-plugins-dependencies
 
-/pubspec.lock
-**/doc/api/
-.dart_tool/
-.packages
-build/
+packages/comms_flutter/**
