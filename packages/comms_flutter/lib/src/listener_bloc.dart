@@ -1,4 +1,4 @@
-import 'package:comms/comms.dart' show Listener;
+import 'package:comms/comms.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart' show mustCallSuper;
 

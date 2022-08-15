@@ -1,4 +1,4 @@
-import 'package:comms/widgets/message_listener.dart';
+import 'package:comms_flutter/src/widgets/message_listener.dart';
 import 'package:flutter/material.dart';
 import 'package:nested/nested.dart';
 
