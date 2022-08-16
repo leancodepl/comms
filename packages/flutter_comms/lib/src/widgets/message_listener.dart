@@ -2,7 +2,7 @@ import 'package:comms/comms.dart';
 import 'package:flutter/material.dart' hide Listener;
 import 'package:nested/nested.dart';
 
-/// Mixin which allows [MultiMessageListener] to infer the types
+/// Mixin which allows MultiMessageListener to infer the types
 /// of multiple [MessageListener]s.
 mixin MessageListenerSingleChildWidget on SingleChildWidget {}
 
