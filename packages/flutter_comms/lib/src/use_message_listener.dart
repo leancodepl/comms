@@ -10,7 +10,7 @@ void useMessageListener<Message>(
   OnMessage<Message> onMessage, [
   List<Object?> keys = const <Object>[],
 ]) {
-  use(_MessageListenerHook(onMessage: onMessage, keys: keys));
+  use(_MessageListenerHook<Message>(onMessage: onMessage, keys: keys));
 }
 
 class _MessageListenerHook<Message> extends Hook<void> {
