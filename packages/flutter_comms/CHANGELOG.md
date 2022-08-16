@@ -1,3 +1,7 @@
+## 0.0.2
+
+- Fix useMessageListener
+
 ## 0.0.1+3
 
 - Fix useMessageListener not using type parameter Message
