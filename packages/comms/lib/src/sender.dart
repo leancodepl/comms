@@ -20,7 +20,7 @@ mixin Sender<Message> {
   }
 }
 
-/// Returns function to send messages to all [Listener]'s of type of the type
+/// Returns function to send messages to all [Listener]s of type of the type
 /// parameterer [Message], without the need of instatiating class with [Sender]
 /// mixin.
 Send<Message> getSend<Message>() {

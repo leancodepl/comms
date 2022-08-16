@@ -1,5 +1,5 @@
-import 'package:comms/comms.dart';
 import 'package:bloc/bloc.dart';
+import 'package:comms/comms.dart';
 import 'package:meta/meta.dart' show mustCallSuper;
 
 /// Handles [Listener]'s [listen] and [close].
@@ -10,9 +10,9 @@ import 'package:meta/meta.dart' show mustCallSuper;
 ///
 /// See also:
 ///
-///  * [ListenerCubit], a class extending [Cubit] which handles calling [listen]
+///  * ListenerCubit, a class extending [Cubit] which handles calling [listen]
 /// and [cancel] automatically.
-///  * [useMessageListener], a hook that provides [Listener]'s functionality
+///  * useMessageListener, a hook that provides [Listener]'s functionality
 /// which handles calling [listen] and [cancel] automatically.
 abstract class ListenerBloc<Event, State, Message> extends Bloc<Event, State>
     with Listener<Message> {
