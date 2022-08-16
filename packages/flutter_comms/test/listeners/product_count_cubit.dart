@@ -1,4 +1,4 @@
-import 'package:comms_flutter/comms_flutter.dart';
+import 'package:flutter_comms/flutter_comms.dart';
 
 class ProductCountListenerCubit
     extends ListenerCubit<int, ProductCountChangedMessage> {

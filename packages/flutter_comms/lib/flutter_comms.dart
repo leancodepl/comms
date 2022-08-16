@@ -1,4 +1,4 @@
-library comms_flutter;
+library flutter_comms;
 
 export 'src/listener_bloc.dart';
 export 'src/listener_cubit.dart';

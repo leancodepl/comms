@@ -1,15 +1,15 @@
-name: comms_flutter prepare
+name: flutter_comms prepare
 
 on:
   push:
     branches: [master]
-    tags-ignore: ["comms_flutter-v*"]
+    tags-ignore: ["flutter_comms-v*"]
     paths:
-      - "packages/comms_flutter/**"
+      - "packages/flutter_comms/**"
   pull_request:
     branches: [master]
     paths:
-      - "packages/comms_flutter/**"
+      - "packages/flutter_comms/**"
 
 jobs:
   main:
