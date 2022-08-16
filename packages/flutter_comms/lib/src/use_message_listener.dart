@@ -27,7 +27,8 @@ class _MessageListenerHook<Message> extends Hook<void> {
 }
 
 class _MessageListenerHookState<Message>
-    extends HookState<void, _MessageListenerHook> with Listener<Message> {
+    extends HookState<void, _MessageListenerHook<Message>>
+    with Listener<Message> {
   @override
   void initHook() {
     super.initHook();
