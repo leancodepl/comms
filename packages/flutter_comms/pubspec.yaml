@@ -12,7 +12,7 @@ dependencies:
   comms: ^0.0.5
   flutter:
     sdk: flutter
-  flutter_hooks: ^0.18.5+1
+  flutter_hooks: ^0.18.2
   logging: ^1.0.2
   meta: ^1.7.0
   nested: ^1.0.0
