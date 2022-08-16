@@ -1,8 +1,8 @@
-name: comms publish
+name: flutter_comms publish
 
 on:
   push:
-    tags: ["comms-v*"]
+    tags: ["flutter_comms-v*"]
 
 jobs:
   main:
@@ -10,7 +10,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: packages/comms
+        working-directory: packages/flutter_comms
 
     steps:
       - name: Clone repository
@@ -31,7 +31,7 @@ jobs:
       - name: Set version data
         run: |
           tag=${{ github.ref_name }}
-          prefix=comms-v
+          prefix=flutter_comms-v
           version=${tag#"$prefix"}
           echo "version: $version"
           echo "VERSION=$version" >> $GITHUB_ENV
@@ -53,6 +53,6 @@ jobs:
       - name: Create release
         uses: softprops/action-gh-release@v1
         with:
-          name: "comms-v${{ env.VERSION }}"
+          name: "flutter_comms-v${{ env.VERSION }}"
           prerelease: ${{ env.IS_PRERELEASE }}
           

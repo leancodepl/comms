@@ -1,0 +1,51 @@
+name: flutter_comms prepare
+
+on:
+  push:
+    branches: [master]
+    tags-ignore: ["flutter_comms-v*"]
+    paths:
+      - "packages/flutter_comms/**"
+  pull_request:
+    branches: [master]
+    paths:
+      - "packages/flutter_comms/**"
+
+jobs:
+  main:
+    name: Flutter ${{ matrix.channel }}${{ matrix.version }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - version: 2.10.5
+          - channel: stable
+          - channel: beta
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v3
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2.5.0
+        with:
+          channel: ${{ matrix.channel }}
+          flutter-version: ${{ matrix.version }}
+
+      - name: flutter version
+        run: flutter --version
+
+      - name: flutter pub get
+        run: flutter pub get
+
+      - name: flutter analyze
+        run: flutter analyze
+
+      - name: flutter test
+        run: flutter test
+
+      - name: flutter format
+        run: flutter format --set-exit-if-changed .
+        

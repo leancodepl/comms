@@ -8,7 +8,7 @@ on:
       - "packages/comms/**"
   pull_request:
     branches: [master]
-    path:
+    paths:
       - "packages/comms/**"
 
 jobs:
@@ -48,3 +48,4 @@ jobs:
 
       - name: dart format
         run: dart format --set-exit-if-changed .
+        
