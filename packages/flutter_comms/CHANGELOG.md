@@ -1,3 +1,7 @@
+## 0.0.3
+
+- Add StateSender mixin
+
 ## 0.0.2
 
 - Fix useMessageListener
