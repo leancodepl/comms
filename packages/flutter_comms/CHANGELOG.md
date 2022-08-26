@@ -1,3 +1,7 @@
+## 0.0.3+1
+
+- Fix export of StateSender
+
 ## 0.0.3
 
 - Add StateSender mixin
