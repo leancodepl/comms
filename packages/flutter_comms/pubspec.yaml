@@ -21,4 +21,4 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  leancode_lint: ^1.2.1
+  leancode_lint: ^1.1.0
