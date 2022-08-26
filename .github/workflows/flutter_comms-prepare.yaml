@@ -23,13 +23,17 @@ jobs:
           - version: 2.10.5
           - channel: stable
           - channel: beta
+    
+    defaults:
+      run:
+        working-directory: packages/flutter_comms
 
     steps:
       - name: Clone repository
         uses: actions/checkout@v3
 
       - name: Install Flutter
-        uses: subosito/flutter-action@v2.5.0
+        uses: subosito/flutter-action@v2.6.2
         with:
           channel: ${{ matrix.channel }}
           flutter-version: ${{ matrix.version }}
@@ -48,4 +52,3 @@ jobs:
 
       - name: flutter format
         run: flutter format --set-exit-if-changed .
-        
