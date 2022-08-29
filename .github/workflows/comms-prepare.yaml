@@ -41,6 +41,9 @@ jobs:
 
       - name: Add mobile-tools to $GITHUB_PATH
         run: |
+          sudo apt install tree
+          tree
+          echo "$PWD"
           echo "$PWD/mobile-tools/bin" >> $GITHUB_PATH
 
       - name: Test mobile-tools
