@@ -40,16 +40,8 @@ jobs:
           repository: leancodepl/mobile-tools
           path: mobile-tools
 
-      - name: Add mobile-tools to $GITHUB_PATH
+      - name: Add mobile-tools to PATH
         run: |
-          echo "HOME: $HOME"
-          sudo apt install tree
-          echo "PWD: $PWD" && tree
-          cd ..
-          echo "PWD: $PWD" && tree
-          cd ..
-          echo "PWD: $PWD" && tree
-          # echo "$PWD/mobile-tools/bin" >> $GITHUB_PATH
           echo $GITHUB_WORKSPACE/mobile-tools/bin >> $GITHUB_PATH
 
       - name: Test mobile-tools
