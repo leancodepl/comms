@@ -18,9 +18,9 @@ jobs:
 
     strategy:
       fail-fast: false
-      matrix: 
+      matrix:
         sdk: [2.16.2, stable, beta]
-    
+
     defaults:
       run:
         working-directory: packages/comms
@@ -34,6 +34,19 @@ jobs:
         with:
           sdk: ${{ matrix.sdk }}
 
+      - name: Install mobile-tools
+        uses: actions/checkout@v3
+        with:
+          repository: leancodepl/mobile-tools
+
+      - name: Add mobile-tools to $GITHUB_PATH
+        run: |
+          echo "$PWD/mobile-tools/bin" >> $GITHUB_PATH
+
+      - name: Test mobile-tools
+        run: |
+          link-changelog comms comms-v0.0.5 comms-
+
       - name: dart pub get
         run: dart pub get
 
@@ -45,4 +58,3 @@ jobs:
 
       - name: dart format
         run: dart format --set-exit-if-changed .
-        

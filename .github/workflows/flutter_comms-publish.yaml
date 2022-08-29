@@ -21,6 +21,8 @@ jobs:
         with:
           sdk: 2.17.0
 
+      # TOOD: Add mobile-tools steps here after debugging ended
+
       - name: Download pub.dev credentials
         env:
           CREDENTIALS: ${{ secrets.PUB_DEV_CREDENTIALS }}
@@ -55,4 +57,3 @@ jobs:
         with:
           name: "flutter_comms-v${{ env.VERSION }}"
           prerelease: ${{ env.IS_PRERELEASE }}
-          
