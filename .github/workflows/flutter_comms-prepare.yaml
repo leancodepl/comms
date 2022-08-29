@@ -23,7 +23,7 @@ jobs:
           - version: 2.10.5
           - channel: stable
           - channel: beta
-    
+
     defaults:
       run:
         working-directory: packages/flutter_comms
@@ -37,9 +37,6 @@ jobs:
         with:
           channel: ${{ matrix.channel }}
           flutter-version: ${{ matrix.version }}
-
-      - name: flutter version
-        run: flutter --version
 
       - name: flutter pub get
         run: flutter pub get
