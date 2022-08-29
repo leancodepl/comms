@@ -44,7 +44,8 @@ jobs:
         run: |
           sudo apt install tree
           tree
-          echo "$PWD"
+          echo "PWD: $PWD"
+          echo "$PWD/mobile-tools/mobile-tools/bin" >> $GITHUB_PATH
           echo "$PWD/mobile-tools/bin" >> $GITHUB_PATH
 
       - name: Test mobile-tools
