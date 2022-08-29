@@ -21,6 +21,16 @@ jobs:
         with:
           sdk: 2.17.0
 
+      - name: Install mobile-tools
+        uses: actions/checkout@v3
+        with:
+          repository: leancodepl/mobile-tools
+          path: mobile-tools
+
+      - name: Add mobile-tools to PATH
+        run: |
+          echo $GITHUB_WORKSPACE/mobile-tools/bin >> $GITHUB_PATH
+
       - name: Download pub.dev credentials
         env:
           CREDENTIALS: ${{ secrets.PUB_DEV_CREDENTIALS }}
@@ -32,20 +42,15 @@ jobs:
         run: |
           tag=${{ github.ref_name }}
           prefix=comms-v
-          version=${tag#"$prefix"}
-          echo "version: $version"
-          echo "VERSION=$version" >> $GITHUB_ENV
+          echo "RELEASE_NOTES=$(link-changelog comms $tag $prefix)" >> $GITHUB_ENV
+          # TODO: Remove in the future
           # set whether is prerelease
+          version=${tag#"$prefix"}
           is_prerelease=false
           if [[ "$version" == 0.* ]]; then
             is_prerelease=true
           fi
           echo "IS_PRERELEASE=$is_prerelease" >> $GITHUB_ENV
-          echo "is_prerelease: $is_prerelease"
-          # set release notes
-          tag_message="$(git tag -l --format='%(contents)' "$tag")"
-          echo "$tag_message" > release_notes.txt
-          echo "tag message: $tag_message"
 
       - name: Publish
         run: dart pub publish -f
@@ -54,5 +59,5 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           name: "comms-v${{ env.VERSION }}"
+          body: ${{ env.RELEASE_NOTES }}
           prerelease: ${{ env.IS_PRERELEASE }}
-          
