@@ -18,9 +18,9 @@ jobs:
 
     strategy:
       fail-fast: false
-      matrix: 
+      matrix:
         sdk: [2.16.2, stable, beta]
-    
+
     defaults:
       run:
         working-directory: packages/comms
@@ -34,9 +34,6 @@ jobs:
         with:
           sdk: ${{ matrix.sdk }}
 
-      - name: dart version
-        run: dart --version
-
       - name: dart pub get
         run: dart pub get
 
@@ -48,4 +45,3 @@ jobs:
 
       - name: dart format
         run: dart format --set-exit-if-changed .
-        
