@@ -1,6 +1,6 @@
 part of '../comms.dart';
 
-/// Helper class used in [MultiListener] to create [Listener]s of specified 
+/// Helper class used in [MultiListener] to create [Listener]s of specified
 /// types.
 class ListenerDelegate<T> with Listener<T> {
   ListenerDelegate();
