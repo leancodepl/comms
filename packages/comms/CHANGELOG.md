@@ -1,3 +1,7 @@
+## 0.0.6
+
+- Add MultiListener and ListenerDelegate
+
 ## 0.0.5
 
 - Add documentation, stop depending on flutter
