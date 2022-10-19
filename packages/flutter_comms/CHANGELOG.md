@@ -1,3 +1,7 @@
+## 0.0.3+2
+
+- Fix MessageListener type parameter
+
 ## 0.0.3+1
 
 - Fix export of StateSender
