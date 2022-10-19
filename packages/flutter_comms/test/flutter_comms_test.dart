@@ -11,19 +11,19 @@ void main() {
   group('ListenerCubit - Sender:', () {
     test(
       'ProductCountListenerCubit message sink is added to register after constructor',
-      () {
+      () async {
         final cubit = ProductCountListenerCubit();
         expect(numberOfProductCountMessageSink(), 1);
-        cubit.close();
+        await cubit.close();
       },
     );
 
     test(
       'ProductCountListenerCubit message sink is removed from register after close',
-      () {
+      () async {
         final cubit = ProductCountListenerCubit();
         expect(numberOfProductCountMessageSink(), 1);
-        cubit.close();
+        await cubit.close();
         expect(numberOfProductCountMessageSink(), 0);
       },
     );

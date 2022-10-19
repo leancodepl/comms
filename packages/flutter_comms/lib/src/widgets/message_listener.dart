@@ -28,11 +28,12 @@ class MessageListener<Message> extends SingleChildStatefulWidget
   final OnMessage<Message> onMessage;
 
   @override
-  State<MessageListener> createState() => _MessageListenerState<Message>();
+  State<MessageListener<Message>> createState() =>
+      _MessageListenerState<Message>();
 }
 
-class _MessageListenerState<Message> extends SingleChildState<MessageListener>
-    with Listener<Message> {
+class _MessageListenerState<Message>
+    extends SingleChildState<MessageListener<Message>> with Listener<Message> {
   @override
   void initState() {
     super.initState();
