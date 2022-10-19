@@ -1,6 +1,6 @@
 ## 0.0.3+2
 
-- Fix MessageListener type parameter
+- Fix `MessageListener` type parameter (#40)
 
 ## 0.0.3+1
 
