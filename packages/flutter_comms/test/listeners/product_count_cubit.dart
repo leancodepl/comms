@@ -14,6 +14,10 @@ class ProductCountListenerCubit
     }
   }
 
+  @override
+  void onInitialMessage(ProductCountChangedMessage message) =>
+      onMessage(message);
+
   void _increment() {
     emit(state + 1);
   }

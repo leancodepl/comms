@@ -50,5 +50,28 @@ void main() {
         await productCountCubit.close();
       },
     );
+
+    test(
+      'ProductCountListenerCubit correctly sets initial state using buffered message',
+      () async {
+        final basketCubit = BasketCubit()..add('Jeans');
+        final productCountCubit = ProductCountListenerCubit();
+
+        basketCubit
+          ..add('T-shirt')
+          ..add('Socks');
+        await Future<void>.delayed(Duration.zero);
+
+        expect(productCountCubit.state, basketCubit.state.length);
+
+        basketCubit.removeLast();
+        await Future<void>.delayed(Duration.zero);
+
+        expect(productCountCubit.state, basketCubit.state.length);
+
+        await basketCubit.close();
+        await productCountCubit.close();
+      },
+    );
   });
 }

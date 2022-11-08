@@ -8,18 +8,26 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 /// cleaning up itself.
 void useMessageListener<Message>(
   OnMessage<Message> onMessage, [
+  OnMessage<Message>? onInitialMessage,
   List<Object?> keys = const <Object>[],
 ]) {
-  use(_MessageListenerHook<Message>(onMessage: onMessage, keys: keys));
+  use(
+    _MessageListenerHook<Message>(
+      onMessage: onMessage,
+      keys: keys,
+    ),
+  );
 }
 
 class _MessageListenerHook<Message> extends Hook<void> {
   const _MessageListenerHook({
     required this.onMessage,
     required List<Object?> keys,
+    this.onInitialMessage,
   }) : super(keys: keys);
 
   final OnMessage<Message> onMessage;
+  final OnMessage<Message>? onInitialMessage;
 
   @override
   _MessageListenerHookState<Message> createState() =>
@@ -37,6 +45,10 @@ class _MessageListenerHookState<Message>
 
   @override
   void onMessage(Message message) => hook.onMessage(message);
+
+  @override
+  void onInitialMessage(Message message) =>
+      hook.onInitialMessage?.call(message);
 
   @override
   void dispose() {

@@ -1,3 +1,7 @@
+## 0.0.4
+
+- Add `onInitialMessage` to `ListenerBloc`, `ListenerCubit`, `MessageListener` and `useMessageListener` (#43)
+
 ## 0.0.3+2
 
 - Fix `MessageListener` type parameter (#40)
