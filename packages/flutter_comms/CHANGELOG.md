@@ -1,6 +1,6 @@
 ## 0.0.4
 
-- Add `onInitialMessage` to `ListenerBloc`, `ListenerCubit`, `MessageListener` and `useMessageListener`
+- Add `onInitialMessage` to `ListenerBloc`, `ListenerCubit`, `MessageListener` and `useMessageListener` (#43)
 
 ## 0.0.3+2
 
