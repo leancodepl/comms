@@ -22,10 +22,12 @@ class MessageListener<Message> extends SingleChildStatefulWidget
   const MessageListener({
     Key? key,
     required this.onMessage,
+    this.onInitialMessage,
     Widget? child,
   }) : super(key: key, child: child);
 
   final OnMessage<Message> onMessage;
+  final OnMessage<Message>? onInitialMessage;
 
   @override
   State<MessageListener<Message>> createState() =>
@@ -42,6 +44,10 @@ class _MessageListenerState<Message>
 
   @override
   void onMessage(Message message) => widget.onMessage(message);
+
+  @override
+  void onInitialMessage(Message message) =>
+      widget.onInitialMessage?.call(message);
 
   @override
   void dispose() {
