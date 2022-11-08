@@ -1,4 +1,4 @@
-## 0.0.7+1
+## 0.0.8
 
 - Make logging optional, add `loggingEnabled` and `log` to `MessageSinkRegister`
 
