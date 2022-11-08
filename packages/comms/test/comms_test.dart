@@ -48,4 +48,26 @@ void main() {
       productCount.dispose();
     },
   );
+
+  test(
+    'ProductCount value correctly sets initial state using buffered message',
+    () async {
+      final basket = Basket()..add('Jeans');
+      final productCount = ProductCount();
+
+      basket
+        ..add('T-shirt')
+        ..add('Socks');
+      await Future<void>.delayed(Duration.zero);
+
+      expect(productCount.value, basket.products.length);
+
+      basket.removeLast();
+      await Future<void>.delayed(Duration.zero);
+
+      expect(productCount.value, basket.products.length);
+
+      productCount.dispose();
+    },
+  );
 }

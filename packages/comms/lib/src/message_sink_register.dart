@@ -39,12 +39,24 @@ class MessageSinkRegister {
   /// All message sinks and their id's added with [_add].
   final _messageSinks = <String, StreamSink>{};
 
+  /// All last messages sent with each type
+  final _messageBuffers = <Type, dynamic>{};
+
   /// Adds a [messageSink] to [MessageSinkRegister]'s [_messageSinks] with
   /// unique id from [_uuid]
-  String _add(StreamSink messageSink) {
+  String _add<Message>(
+    StreamSink<Message> messageSink, {
+    OnMessage<Message>? onInitialMessage,
+  }) {
     final id = _uuid.v1();
     _messageSinks[id] = messageSink;
     _log('Added sink ${messageSink.runtimeType}');
+
+    final bufferedMessage = _messageBuffers[Message] as Message?;
+    if (bufferedMessage != null) {
+      onInitialMessage?.call(bufferedMessage);
+    }
+
     return id;
   }
 
@@ -56,14 +68,24 @@ class MessageSinkRegister {
   }
 
   /// Returns all sinks in [MessageSinkRegister]'s [_messageSinks] of type
-  /// of the type argument [Message]
+  /// [Message]
   @visibleForTesting
   List<StreamSink<Message>> getSinksOfType<Message>() {
-    final sinks =
-        _messageSinks.values.whereType<StreamSink<Message>>().toList();
+    final sinks = _messageSinks.values.whereType<StreamSink<Message>>();
     if (sinks.isEmpty) {
       _log('Found no sinks of type $Message');
     }
-    return sinks;
+
+    return sinks.toList();
+  }
+
+  /// Adds [message] to all sinks in [MessageSinkRegister]'s [_messageSinks]
+  /// of type [Message] and updates [_messageBuffers].
+  void sendToSinksOfType<Message>(Message message) {
+    getSinksOfType<Message>().forEach(
+      (sink) => sink.add(message),
+    );
+
+    _messageBuffers[Message] = message;
   }
 }
