@@ -9,7 +9,7 @@ environment:
 
 dependencies:
   bloc: ^8.1.0
-  comms: ^0.0.7
+  comms: ^0.0.8
   flutter:
     sdk: flutter
   flutter_hooks: ^0.18.2
