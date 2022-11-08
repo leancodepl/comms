@@ -1,3 +1,7 @@
+## 0.0.7+1
+
+- Make logging optional, add `loggingEnabled` and `log` to `MessageSinkRegister`
+
 ## 0.0.7
 
 - Add `onInitialMessage()` method to the `Listener` mixin (#41)
