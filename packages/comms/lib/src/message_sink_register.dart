@@ -1,5 +1,7 @@
 part of '../comms.dart';
 
+typedef Log = void Function(String message);
+
 /// Allows communication between [Listener]s and [Sender]s of the same type,
 /// without the need of them knowing about each other.
 @visibleForTesting
@@ -13,7 +15,23 @@ class MessageSinkRegister {
 
   static final MessageSinkRegister _instance = MessageSinkRegister._();
 
+  static bool logging = true;
+  static Log? log;
   final _logger = Logger('MessageSinkRegister');
+
+  void _log(String message) {
+    if (!logging) {
+      return;
+    }
+
+    final logFunction = log;
+    if (logFunction != null) {
+      logFunction(message);
+      return;
+    }
+
+    _logger.info(message);
+  }
 
   /// Used to create unique id for each message sink added with [_add].
   final _uuid = const Uuid();
@@ -26,14 +44,14 @@ class MessageSinkRegister {
   String _add(StreamSink messageSink) {
     final id = _uuid.v1();
     _messageSinks[id] = messageSink;
-    _logger.info('Added sink ${messageSink.runtimeType}');
+    _log('Added sink ${messageSink.runtimeType}');
     return id;
   }
 
   /// Removes messageSink with [id] from [MessageSinkRegister]'s [_messageSinks]
   void _remove(String id) {
     final sink = _messageSinks.remove(id);
-    _logger.info('Removed sink ${sink.runtimeType}');
+    _log('Removed sink ${sink.runtimeType}');
     sink?.close();
   }
 
@@ -44,7 +62,7 @@ class MessageSinkRegister {
     final sinks =
         _messageSinks.values.whereType<StreamSink<Message>>().toList();
     if (sinks.isEmpty) {
-      _logger.info('Found no sinks of type $Message');
+      _log('Found no sinks of type $Message');
     }
     return sinks;
   }
