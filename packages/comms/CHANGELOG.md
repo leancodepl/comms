@@ -1,3 +1,6 @@
+## 0.0.7
+- Add onInitialMessage to Listener
+
 ## 0.0.6
 
 - Add MultiListener and ListenerDelegate
