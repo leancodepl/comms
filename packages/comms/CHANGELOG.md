@@ -1,5 +1,6 @@
 ## 0.0.7
-- Add onInitialMessage to Listener
+
+- Add `onInitialMessage()` method to the `Listener` mixin (#41)
 
 ## 0.0.6
 
