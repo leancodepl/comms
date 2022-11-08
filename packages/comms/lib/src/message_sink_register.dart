@@ -1,6 +1,6 @@
 part of '../comms.dart';
 
-typedef Log = void Function(String message);
+typedef _LogggerCallback = void Function(String message);
 
 /// Allows communication between [Listener]s and [Sender]s of the same type,
 /// without the need of them knowing about each other.
@@ -15,12 +15,12 @@ class MessageSinkRegister {
 
   static final MessageSinkRegister _instance = MessageSinkRegister._();
 
-  static bool logging = true;
-  static Log? log;
+  static bool loggingEnabled = true;
+  static _LogggerCallback? log;
   final _logger = Logger('MessageSinkRegister');
 
   void _log(String message) {
-    if (!logging) {
+    if (!loggingEnabled) {
       return;
     }
 
