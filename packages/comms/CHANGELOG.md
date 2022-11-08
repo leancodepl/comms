@@ -1,3 +1,7 @@
+## 0.0.7
+
+- Add `onInitialMessage()` method to the `Listener` mixin (#41)
+
 ## 0.0.6
 
 - Add MultiListener and ListenerDelegate

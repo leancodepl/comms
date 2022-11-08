@@ -14,9 +14,7 @@ mixin Sender<Message> {
   @protected
   @nonVirtual
   void send(Message message) {
-    MessageSinkRegister().getSinksOfType<Message>().forEach(
-          (sink) => sink.add(message),
-        );
+    MessageSinkRegister().sendToSinksOfType<Message>(message);
   }
 }
 
@@ -24,9 +22,5 @@ mixin Sender<Message> {
 /// parameterer [Message], without the need of instatiating class with [Sender]
 /// mixin.
 Send<Message> getSend<Message>() {
-  return (message) {
-    MessageSinkRegister().getSinksOfType<Message>().forEach(
-          (sink) => sink.add(message),
-        );
-  };
+  return MessageSinkRegister().sendToSinksOfType<Message>;
 }

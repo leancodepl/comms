@@ -17,6 +17,10 @@ class ProductCount with Listener<ProductCountChangedMessage> {
     }
   }
 
+  @override
+  void onInitialMessage(ProductCountChangedMessage message) =>
+      onMessage(message);
+
   void _increment() {
     value += 1;
   }

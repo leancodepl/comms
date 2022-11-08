@@ -25,7 +25,7 @@ mixin Listener<Message> {
   ///
   /// Registers message sink in [MessageSinkRegister].
   ///
-  /// If this [Listener]s message sink is already registered, it's automatically
+  /// If this [Listener]'s message sink is already registered, it's automatically
   /// unregistered first.
   @protected
   @nonVirtual
@@ -34,13 +34,21 @@ mixin Listener<Message> {
       cancel();
     }
     _messageStreamController = StreamController<Message>();
-    _id = MessageSinkRegister()._add(_messageStreamController.sink);
+    _id = MessageSinkRegister()._add(
+      _messageStreamController.sink,
+      onInitialMessage: onInitialMessage,
+    );
     _messageSubscription = _messageStreamController.stream.listen(onMessage);
   }
 
   /// Called every time a new [message] is received.
   @protected
   void onMessage(Message message);
+
+  /// Called when registering [Listener] if a message of type [Message] was
+  /// already sent by [Sender] earlier.
+  @protected
+  void onInitialMessage(Message message) {}
 
   /// Stops receiving messages.
   ///
