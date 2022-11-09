@@ -1,3 +1,7 @@
+## 0.0.4+1
+
+- Upgrade comms package
+
 ## 0.0.4
 
 - Add `onInitialMessage` to `ListenerBloc`, `ListenerCubit`, `MessageListener` and `useMessageListener` (#43)
