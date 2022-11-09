@@ -1,6 +1,10 @@
+## 0.0.8+1
+
+- Make `MessageSinkRegister` available publicly (#44)
+
 ## 0.0.8
 
-- Make logging optional, add `loggingEnabled` and `log` to `MessageSinkRegister`
+- Make logging optional, add `loggingEnabled` and `log` to `MessageSinkRegister` (#42)
 
 ## 0.0.7
 

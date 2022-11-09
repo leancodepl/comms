@@ -4,7 +4,6 @@ typedef LoggerCallback = void Function(String message);
 
 /// Allows communication between [Listener]s and [Sender]s of the same type,
 /// without the need of them knowing about each other.
-@visibleForTesting
 class MessageSinkRegister {
   /// A singleton constructor.
   ///
