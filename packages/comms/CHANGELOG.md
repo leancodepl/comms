@@ -1,3 +1,7 @@
+## 0.0.8+2
+
+- Add README (#46)
+
 ## 0.0.8+1
 
 - Make `MessageSinkRegister` public (#44)
