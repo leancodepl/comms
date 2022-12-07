@@ -3,10 +3,10 @@
 [![codestyle][pub_badge_style]][pub_badge_link]
 
 `comms` is a simple communication pattern abstraction on streams, created for
-communication between any logic classes. It allows `Listener`s to easily 
-react to messages sent by `Sender`s.
+communication between any classes. It allows `Listener`s to easily react to
+messages sent by `Sender`s.
 
-For use in flutter projects checkout [flutter_comms].
+For use in Flutter projects, check out [flutter_comms].
 
 ## Installation
 
@@ -15,23 +15,28 @@ $ dart pub add comms
 ```
 
 ## Basic usage
-Imagine you had to connect a light bulb and its light switch. In real world
-you'd have to use cables, but in code we can use `comms` for them to communicate
-easily without having to "tear down the walls".
+
+Imagine you had to connect a light bulb and its light switch. In real world you'd
+have to use a wire and connect them, in code we can create a `Stream` in the
+light bulb and pass its `Sink` to the light switch, but instead of writing all the
+boilerplate code you can use `Listener` and `Sender` mixins which do it all for you.
 
 ### Creating a Listener
+
+A `Listener` is a mixin which allows your class to receive messages from any
+`Sender` sharing the same message type.
 
 ```dart
 /// Add a `Listener` mixin with type of messages to listen for.
 class LightBulb with Listener<bool> {
   LightBulb() {
-    /// Call `listen` to start listening
+    /// Call `listen` to start listening.
     listen();
   }
 
   bool enabled = false;
   
-  /// Override `onMessage` to specify how to react on messages.
+  /// Override `onMessage` to specify how to react to messages.
   @override
   void onMessage(bool message) {
     enabled = message;
@@ -69,21 +74,21 @@ void main() async {
 
   lightSwitch.enable();
     
-  // Because communication is asynchronuos we have to wait
-  // just a little bit for the message to reach the `lightBulb`.
+  // Because communication is asynchronous we have to wait until the
+  // next event loop iteration for the message to reach the `lightBulb`.
   await Future<void>.delayed(Duration.zero);
 
   print(lightBulb.enabled); // true
 
-  // At the end don't forget to close the connection and cleanup.
+  // Clean up resources once done.
   lightBulb.dispose();
 }
 ```
 
 ### Multiple Listeners and Senders
 
-With `comms` any `Sender` will send a message to any `Listener` sharing the same
-message type.
+A `Sender` sends a message to all `Listener`s sharing the same message type,
+so whenever any `Sender<A>` sends a message every `Listener<A>` will get the it.
 
 ```dart
 void main() async {
@@ -105,7 +110,7 @@ void main() async {
 
 ## Handling initial message
 To handle the last message sent before creating an instance of `Listener` you
-can use `onInitialMessage` which will be invoked after `Listener` calls `listen`
+can override `onInitialMessage`, which is called after your `Listener` calls `listen`
 passing the last sent message of specified message type as argument.
 
 ```dart
@@ -113,7 +118,7 @@ abstract class CounterMessage {}
 class CounterIncremented extends CounterMessage {}
 class CounterDecremented extends CounterMessage {}
 
-class CounterController with Sender<CounterChanged> {
+class CounterController with Sender<CounterMessage> {
   void increment() => send(CounterIncremented());
   void decrement() => send(CounterDecremented());
 }
@@ -151,8 +156,8 @@ void main() {
 ```
 
 ## Listening for multiple message types
-If you need to receive more than one message type in a single `Listener` you
-can use `MultiListener` mixin.
+If you need to receive more than one message type in a single `Listener` class, you
+can use the `MultiListener` mixin.
 
 ```dart
 class MyListener with MultiListener {
@@ -190,7 +195,7 @@ mixin CustomSender {
 }
 ```
 
-You can also use `getSend` to send messages from anywhere without even
+You can also use the `getSend` function to send messages from anywhere without even
 creating a `Sender`.
 
 ```dart
