@@ -88,7 +88,7 @@ void main() async {
 ### Multiple Listeners and Senders
 
 A `Sender` sends a message to all `Listener`s sharing the same message type,
-so whenever any `Sender<A>` sends a message every `Listener<A>` will get the it.
+so whenever any `Sender<A>` sends a message every `Listener<A>` will get it.
 
 ```dart
 void main() async {
