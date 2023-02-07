@@ -1,3 +1,7 @@
+## 0.0.5
+
+- **Breaking:** Change `useMessageListener`s `onInitialMessage` and `keys` to named parameters (#47)
+
 ## 0.0.4+1
 
 - Upgrade comms package
