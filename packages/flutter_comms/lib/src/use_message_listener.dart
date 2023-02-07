@@ -7,10 +7,10 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 /// Works similarly to [Listener] but handles starting receiving messages and
 /// cleaning up itself.
 void useMessageListener<Message>(
-  OnMessage<Message> onMessage, [
+  OnMessage<Message> onMessage, {
   OnMessage<Message>? onInitialMessage,
   List<Object?> keys = const <Object>[],
-]) {
+}) {
   use(
     _MessageListenerHook<Message>(
       onMessage: onMessage,
