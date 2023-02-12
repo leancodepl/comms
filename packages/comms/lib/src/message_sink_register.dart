@@ -39,21 +39,28 @@ class MessageSinkRegister {
   final _messageSinks = <String, StreamSink>{};
 
   /// All last messages sent with each type
-  final _messageBuffers = <Type, dynamic>{};
+  final _messageBuffers = <Type, _BufferedMessage<dynamic>>{};
 
   /// Adds a [messageSink] to [MessageSinkRegister]'s [_messageSinks] with
   /// unique id from [_uuid]
   String _add<Message>(
     StreamSink<Message> messageSink, {
-    OnMessage<Message>? onInitialMessage,
+    required OnMessage<Message> onInitialMessage,
   }) {
     final id = _uuid.v1();
     _messageSinks[id] = messageSink;
     _log('Added sink ${messageSink.runtimeType}');
 
-    final bufferedMessage = _messageBuffers[Message] as Message?;
-    if (bufferedMessage != null) {
-      onInitialMessage?.call(bufferedMessage);
+    final bufferedMessage = _messageBuffers[Message];
+
+    final message = bufferedMessage?.message as Message?;
+
+    if (message != null) {
+      onInitialMessage(message);
+
+      if (bufferedMessage?.oneOff ?? false) {
+        _messageBuffers.remove(Message);
+      }
     }
 
     return id;
@@ -80,11 +87,24 @@ class MessageSinkRegister {
 
   /// Adds [message] to all sinks in [MessageSinkRegister]'s [_messageSinks]
   /// of type [Message] and updates [_messageBuffers].
-  void sendToSinksOfType<Message>(Message message) {
+  void sendToSinksOfType<Message>(Message message, {bool oneOff = false}) {
     getSinksOfType<Message>().forEach(
       (sink) => sink.add(message),
     );
 
-    _messageBuffers[Message] = message;
+    _messageBuffers[Message] = _BufferedMessage<Message>(
+      message: message,
+      oneOff: oneOff,
+    );
   }
+}
+
+class _BufferedMessage<Message> {
+  _BufferedMessage({
+    required this.message,
+    required this.oneOff,
+  });
+
+  final Message message;
+  final bool oneOff;
 }

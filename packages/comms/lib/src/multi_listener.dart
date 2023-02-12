@@ -6,11 +6,13 @@ class ListenerDelegate<T> with Listener<T> {
   ListenerDelegate();
 
   late final OnMessage _onMessage;
+  late final OnMessage _onInitialMessage;
 
   @protected
   @nonVirtual
-  void _init(OnMessage onMessage) {
+  void _init(OnMessage onMessage, OnMessage onInitialMessage) {
     _onMessage = onMessage;
+    _onInitialMessage = onInitialMessage;
     listen();
   }
 
@@ -18,6 +20,11 @@ class ListenerDelegate<T> with Listener<T> {
   @nonVirtual
   @override
   void onMessage(T message) => _onMessage(message);
+
+  @protected
+  @nonVirtual
+  @override
+  void onInitialMessage(T message) => _onInitialMessage(message);
 }
 
 /// A mixin used on classes that want to receive messages of multiple types.
@@ -41,13 +48,21 @@ mixin MultiListener {
   @nonVirtual
   void listen() => listenerDelegates.forEach(_listen);
 
-  void _listen(ListenerDelegate listenerDelegate) =>
-      listenerDelegate.._init(onMessage);
+  void _listen(ListenerDelegate listenerDelegate) => listenerDelegate
+    .._init(
+      onMessage,
+      onInitialMessage,
+    );
 
   /// Called every time a new [message] of type specified in [listenerDelegates]
   /// is received.
   @protected
   void onMessage(dynamic message);
+
+  /// Called when registering [MultiListener] if a message of type specified in
+  /// [listenerDelegates] was sent earlier by [Sender].
+  @protected
+  void onInitialMessage(dynamic message) {}
 
   /// Stops receiving messages.
   ///
