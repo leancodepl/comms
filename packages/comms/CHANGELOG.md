@@ -1,3 +1,10 @@
+## 0.0.9
+
+- Add `oneOff` to `send()` for marking message as available to read only once
+from buffer
+
+- Add `onInitialMessage()` to `MultiListener` mixin
+
 ## 0.0.8+2
 
 - Add README (#46)
@@ -12,7 +19,7 @@
 
 ## 0.0.7
 
-- Add `onInitialMessage()` method to the `Listener` mixin (#41)
+- Add `onInitialMessage()` to `Listener` mixin (#41)
 
 ## 0.0.6
 

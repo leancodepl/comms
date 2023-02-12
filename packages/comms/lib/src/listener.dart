@@ -14,9 +14,8 @@ typedef OnMessage<Message> = void Function(Message message);
 ///
 ///  * [MultiListener], which enables listening to multiple message types.
 mixin Listener<Message> {
-  late final StreamController<Message> _messageStreamController;
-
-  late final StreamSubscription<Message> _messageSubscription;
+  StreamController<Message>? _messageStreamController;
+  StreamSubscription<Message>? _messageSubscription;
 
   /// Unique identifier of the [Listener]'s messageSink in [MessageSinkRegister].
   String? _id;
@@ -35,10 +34,10 @@ mixin Listener<Message> {
     }
     _messageStreamController = StreamController<Message>();
     _id = MessageSinkRegister()._add(
-      _messageStreamController.sink,
+      _messageStreamController!.sink,
       onInitialMessage: onInitialMessage,
     );
-    _messageSubscription = _messageStreamController.stream.listen(onMessage);
+    _messageSubscription = _messageStreamController!.stream.listen(onMessage);
   }
 
   /// Called every time a new [message] is received.
@@ -46,7 +45,7 @@ mixin Listener<Message> {
   void onMessage(Message message);
 
   /// Called when registering [Listener] if a message of type [Message] was
-  /// already sent by [Sender] earlier.
+  /// sent earlier by [Sender].
   @protected
   void onInitialMessage(Message message) {}
 
@@ -60,8 +59,8 @@ mixin Listener<Message> {
   void cancel() {
     if (_id != null) {
       MessageSinkRegister()._remove(_id!);
-      _messageStreamController.close();
-      _messageSubscription.cancel();
+      _messageStreamController?.close();
+      _messageSubscription?.cancel();
       _id = null;
     }
   }
