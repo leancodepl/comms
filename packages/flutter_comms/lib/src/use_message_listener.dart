@@ -14,6 +14,7 @@ void useMessageListener<Message>(
   use(
     _MessageListenerHook<Message>(
       onMessage: onMessage,
+      onInitialMessage: onInitialMessage,
       keys: keys,
     ),
   );
@@ -47,8 +48,11 @@ class _MessageListenerHookState<Message>
   void onMessage(Message message) => hook.onMessage(message);
 
   @override
-  void onInitialMessage(Message message) =>
-      hook.onInitialMessage?.call(message);
+  void onInitialMessage(Message message) {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => hook.onInitialMessage?.call(message),
+    );
+  }
 
   @override
   void dispose() {

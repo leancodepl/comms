@@ -1,5 +1,3 @@
-library flutter_comms;
-
 export 'package:comms/comms.dart';
 
 export 'src/listener_bloc.dart';

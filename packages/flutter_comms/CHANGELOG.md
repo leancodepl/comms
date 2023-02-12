@@ -1,3 +1,7 @@
+## 0.0.6
+
+- Fix `useMessageListener`s `onInitialMessage` getting called during build (#49)
+
 ## 0.0.5
 
 - **Breaking:** Change `useMessageListener`s `onInitialMessage` and `keys` to named parameters (#47)
