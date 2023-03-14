@@ -1,6 +1,6 @@
 name: flutter_comms
 description: Simple communication pattern abstraction on streams, created for communication between blocs and or widgets.
-version: 0.0.6+1
+version: 0.0.6+2
 homepage: https://github.com/leancodepl/comms
 
 environment:
