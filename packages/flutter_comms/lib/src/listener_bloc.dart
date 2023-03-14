@@ -16,7 +16,7 @@ import 'package:meta/meta.dart' show mustCallSuper;
 /// which handles calling [listen] and [cancel] automatically.
 abstract class ListenerBloc<Event, State, Message> extends Bloc<Event, State>
     with Listener<Message> {
-  ListenerBloc(State initialState) : super(initialState) {
+  ListenerBloc(super.initialState) {
     super.listen();
   }
 
