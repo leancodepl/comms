@@ -20,11 +20,11 @@ mixin MessageListenerSingleChildWidget on SingleChildWidget {}
 class MessageListener<Message> extends SingleChildStatefulWidget
     with MessageListenerSingleChildWidget {
   const MessageListener({
-    Key? key,
+    super.key,
     required this.onMessage,
     this.onInitialMessage,
-    Widget? child,
-  }) : super(key: key, child: child);
+    super.child,
+  });
 
   final OnMessage<Message> onMessage;
   final OnMessage<Message>? onInitialMessage;

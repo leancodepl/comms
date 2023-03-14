@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_comms/src/widgets/message_listener.dart';
 import 'package:nested/nested.dart';
 
@@ -24,8 +23,8 @@ import 'package:nested/nested.dart';
 ///
 class MultiMessageListener extends Nested {
   MultiMessageListener({
-    Key? key,
+    super.key,
     required List<MessageListenerSingleChildWidget> listeners,
-    required Widget child,
-  }) : super(key: key, children: listeners, child: child);
+    super.child,
+  }) : super(children: listeners);
 }

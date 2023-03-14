@@ -18,7 +18,7 @@ import 'package:meta/meta.dart' show mustCallSuper;
 /// which handles calling [listen] and [cancel] automatically.
 abstract class ListenerCubit<State, Message> extends Cubit<State>
     with Listener<Message> {
-  ListenerCubit(State initialState) : super(initialState) {
+  ListenerCubit(super.initialState) {
     super.listen();
   }
 
