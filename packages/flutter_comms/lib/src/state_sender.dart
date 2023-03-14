@@ -7,8 +7,8 @@ import 'package:meta/meta.dart' show mustCallSuper;
 mixin StateSender<State> on BlocBase<State> {
   @override
   @mustCallSuper
-  void emit(State state) {
-    super.emit(state);
-    getSend<State>()(state);
+  void onChange(Change<State> change) {
+    super.onChange(change);
+    getSend<State>()(change.nextState);
   }
 }

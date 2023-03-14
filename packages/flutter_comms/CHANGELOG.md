@@ -1,3 +1,7 @@
+## 0.0.6+2
+
+- Fix `StateSender` to only send messages when state is actually emitted
+
 ## 0.0.6
 
 - Fix `useMessageListener`s `onInitialMessage` getting called during build (#49)
