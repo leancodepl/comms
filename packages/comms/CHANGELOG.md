@@ -1,6 +1,6 @@
 ## 0.0.10
 
-- Fix one off messages getting buffered when there is any active `Listener`
+- Fix one off messages getting buffered when there are active `Listener`s (#54)
 
 ## 0.0.9
 
