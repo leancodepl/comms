@@ -1,3 +1,7 @@
+## 0.0.6+3
+
+- Upgrade comms package (#56)
+
 ## 0.0.6+2
 
 - Fix `StateSender` to only send messages when state is actually emitted
