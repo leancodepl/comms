@@ -1,3 +1,7 @@
+## 0.0.10
+
+- Fix one off messages getting buffered when there is any active `Listener`
+
 ## 0.0.9
 
 - Add `oneOff` to `send()` for marking message as available to read only once

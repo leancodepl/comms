@@ -88,9 +88,14 @@ class MessageSinkRegister {
   /// Adds [message] to all sinks in [MessageSinkRegister]'s [_messageSinks]
   /// of type [Message] and updates [_messageBuffers].
   void sendToSinksOfType<Message>(Message message, {bool oneOff = false}) {
-    getSinksOfType<Message>().forEach(
-      (sink) => sink.add(message),
-    );
+    final sinks = getSinksOfType<Message>()
+      ..forEach(
+        (sink) => sink.add(message),
+      );
+
+    if (sinks.isNotEmpty && oneOff) {
+      return;
+    }
 
     _messageBuffers[Message] = _BufferedMessage<Message>(
       message: message,

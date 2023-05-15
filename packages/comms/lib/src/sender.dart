@@ -13,8 +13,10 @@ typedef Send<Message> = void Function(Message message, {bool oneOff});
 mixin Sender<Message> {
   /// Sends [message] to all [Listener]s of type [Message].
   ///
-  /// When [oneOff] is `true` [message] will be removed from the buffer after
-  /// the first [Listener] of same type calls listen().
+  /// When [oneOff] is `true` [message] will only be received by any [Listener]
+  /// currenlty listening for type [Message] or if there aren't any it will only
+  /// be received by the first [Listener] that calls `listen()` in
+  /// `onInitialMessage()`.
   @protected
   @nonVirtual
   void send(Message message, {bool oneOff = false}) {
