@@ -5,12 +5,12 @@ part of '../comms.dart';
 class ListenerDelegate<T> with Listener<T> {
   ListenerDelegate();
 
-  late final OnMessage _onMessage;
-  late final OnMessage _onInitialMessage;
+  late final OnMessage<T> _onMessage;
+  late final OnMessage<T> _onInitialMessage;
 
   @protected
   @nonVirtual
-  void _init(OnMessage onMessage, OnMessage onInitialMessage) {
+  void _init(OnMessage<T> onMessage, OnMessage<T> onInitialMessage) {
     _onMessage = onMessage;
     _onInitialMessage = onInitialMessage;
     listen();
@@ -38,7 +38,7 @@ class ListenerDelegate<T> with Listener<T> {
 ///
 ///  * [Listener], which enables listening to messages of single type.
 mixin MultiListener {
-  List<ListenerDelegate> get listenerDelegates;
+  List<ListenerDelegate<dynamic>> get listenerDelegates;
 
   /// Starts message receiving.
   ///
@@ -48,7 +48,7 @@ mixin MultiListener {
   @nonVirtual
   void listen() => listenerDelegates.forEach(_listen);
 
-  void _listen(ListenerDelegate listenerDelegate) => listenerDelegate
+  void _listen(ListenerDelegate<dynamic> listenerDelegate) => listenerDelegate
     .._init(
       onMessage,
       onInitialMessage,
@@ -71,5 +71,6 @@ mixin MultiListener {
   @nonVirtual
   void cancel() => listenerDelegates.forEach(_cancel);
 
-  void _cancel(ListenerDelegate listenerDelegate) => listenerDelegate.cancel();
+  void _cancel(ListenerDelegate<dynamic> listenerDelegate) =>
+      listenerDelegate.cancel();
 }
