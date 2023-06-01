@@ -36,7 +36,7 @@ class MessageSinkRegister {
   final _uuid = const Uuid();
 
   /// All message sinks and their id's added with [_add].
-  final _messageSinks = <String, StreamSink>{};
+  final _messageSinks = <String, StreamSink<dynamic>>{};
 
   /// All last messages sent with each type
   final _messageBuffers = <Type, _BufferedMessage<dynamic>>{};
