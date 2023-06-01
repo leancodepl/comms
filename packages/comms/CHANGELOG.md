@@ -1,3 +1,7 @@
+## 0.0.11
+
+- Fix new dart compatibility issue
+
 ## 0.0.10
 
 - Fix one off messages getting buffered when there are active `Listener`s (#54)
