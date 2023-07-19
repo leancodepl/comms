@@ -1,9 +1,5 @@
 part of '../comms.dart';
 
-/// Signature for functions sending message to [Listener]s listening for type
-/// [Message].
-typedef Send<Message> = void Function(Message message, {bool oneOff});
-
 /// A mixin used on classes that want to send messages of type [Message], by
 /// providing [send] function.
 ///
@@ -19,13 +15,19 @@ mixin Sender<Message> {
   /// `onInitialMessage()`.
   @protected
   @nonVirtual
-  void send(Message message, {bool oneOff = false}) {
-    MessageSinkRegister().sendToSinksOfType<Message>(message, oneOff: oneOff);
+  void send<T extends Message>(T message, {bool oneOff = false}) {
+    MessageSinkRegister().sendToSinksOfType<T>(message, oneOff: oneOff);
+  }
+}
+
+class SenderFunctor<Message> {
+  void call<T extends Message>(T message, {bool oneOff = false}) {
+    MessageSinkRegister().sendToSinksOfType<T>(message, oneOff: oneOff);
   }
 }
 
 /// Returns function to send messages to all [Listener]s of type [Message],
 /// without the need of instatiating class with [Sender] mixin.
-Send<Message> getSend<Message>() {
-  return MessageSinkRegister().sendToSinksOfType<Message>;
+SenderFunctor<Message> getSend<Message>() {
+  return SenderFunctor<Message>();
 }

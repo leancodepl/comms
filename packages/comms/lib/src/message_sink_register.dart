@@ -2,6 +2,9 @@ part of '../comms.dart';
 
 typedef LoggerCallback = void Function(String message);
 
+typedef _Contra<T> = void Function(T);
+_Contra<T> _makeContra<T>() => (_) {};
+
 /// Allows communication between [Listener]s and [Sender]s of the same type,
 /// without the need of them knowing about each other.
 class MessageSinkRegister {
@@ -32,57 +35,61 @@ class MessageSinkRegister {
     _logger.info(message);
   }
 
-  /// Used to create unique id for each message sink added with [_add].
-  final _uuid = const Uuid();
-
   /// All message sinks and their id's added with [_add].
-  final _messageSinks = <String, StreamSink<dynamic>>{};
+  final Map<_Contra<Never>, StreamSink<dynamic>> _messageSinks = {};
+  final List<_Contra<Never>> _messageSinkKeys = [];
 
   /// All last messages sent with each type
-  final _messageBuffers = <Type, _BufferedMessage<dynamic>>{};
+  final Map<Type, _BufferedMessage<dynamic>> _messageBuffers = {};
 
-  /// Adds a [messageSink] to [MessageSinkRegister]'s [_messageSinks] with
-  /// unique id from [_uuid]
-  String _add<Message>(
+  /// Adds a [messageSink] to [MessageSinkRegister]'s [_messageSinks]
+  _Contra<Message> _add<Message>(
     StreamSink<Message> messageSink, {
     required OnMessage<Message> onInitialMessage,
   }) {
-    final id = _uuid.v1();
-    _messageSinks[id] = messageSink;
-    _log('Added sink ${messageSink.runtimeType}');
+    final key = _makeContra<Message>();
+    _messageSinkKeys.add(key);
+    _messageSinks[key] = messageSink;
 
-    final bufferedMessage = _messageBuffers[Message];
+    _log('Added sink of type $Message');
 
-    final message = bufferedMessage?.message as Message?;
+    final bufferedMessage = _messageBuffers.values
+        .whereType<_BufferedMessage<Message>>()
+        .firstOrNull;
 
-    if (message != null) {
-      onInitialMessage(message);
+    if (bufferedMessage != null) {
+      onInitialMessage(bufferedMessage.message);
 
-      if (bufferedMessage?.oneOff ?? false) {
+      if (bufferedMessage.oneOff) {
         _messageBuffers.remove(Message);
       }
     }
 
-    return id;
+    return key;
   }
 
-  /// Removes messageSink with [id] from [MessageSinkRegister]'s [_messageSinks]
-  void _remove(String id) {
-    final sink = _messageSinks.remove(id);
+  /// Removes messageSink with [key] from [MessageSinkRegister]'s [_messageSinks]
+  void _remove(_Contra<Never> key) {
+    final sink = _messageSinks.remove(key)!;
+    _messageSinkKeys.remove(key);
+    sink.close();
     _log('Removed sink ${sink.runtimeType}');
-    sink?.close();
   }
 
   /// Returns all sinks in [MessageSinkRegister]'s [_messageSinks] of type
   /// [Message]
   @visibleForTesting
-  List<StreamSink<Message>> getSinksOfType<Message>() {
-    final sinks = _messageSinks.values.whereType<StreamSink<Message>>();
-    if (sinks.isEmpty) {
+  List<StreamSink<dynamic>> getSinksOfType<Message>() {
+    final messageSinks = _messageSinkKeys
+        .whereType<_Contra<Message>>()
+        .map((key) => _messageSinks[key]!)
+        .toList();
+
+    if (messageSinks.isEmpty) {
       _log('Found no sinks of type $Message');
     }
 
-    return sinks.toList();
+    return messageSinks.toList();
   }
 
   /// Adds [message] to all sinks in [MessageSinkRegister]'s [_messageSinks]
@@ -101,6 +108,16 @@ class MessageSinkRegister {
       message: message,
       oneOff: oneOff,
     );
+  }
+
+  @visibleForTesting
+  void clear() {
+    _messageBuffers.clear();
+    _messageSinkKeys.clear();
+    for (final sink in _messageSinks.values) {
+      sink.close();
+    }
+    _messageSinks.clear();
   }
 }
 

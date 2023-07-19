@@ -1,3 +1,7 @@
+## 1.0.0
+
+- Introduce contravariant listening (#58)
+
 ## 0.0.11
 
 - Fix new dart compatibility issue

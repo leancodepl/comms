@@ -34,7 +34,29 @@ class ProductCount with Listener<ProductCountChangedMessage> {
   }
 }
 
-abstract class ProductCountChangedMessage {}
+class ProductCountIncrementedListener with Listener<ProductCountIncremented> {
+  ProductCountIncrementedListener() {
+    listen();
+  }
+
+  int value = 0;
+
+  @override
+  void onMessage(ProductCountIncremented message) {
+    value += 1;
+  }
+
+  @override
+  void onInitialMessage(ProductCountIncremented message) {
+    onMessage(message);
+  }
+
+  void dispose() {
+    cancel();
+  }
+}
+
+class ProductCountChangedMessage {}
 
 class ProductCountIncremented extends ProductCountChangedMessage {}
 
