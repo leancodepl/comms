@@ -26,8 +26,15 @@ class SenderFunctor<Message> {
   }
 }
 
-/// Returns function to send messages to all [Listener]s of type [Message],
-/// without the need of instatiating class with [Sender] mixin.
+/// Returns an object that can be called like a function (a functor) which sends
+/// messages to all [Listener]s of type [Message], without the need of
+/// instatiating a class with [Sender] mixin.
+///
+/// Example usage:
+/// ```dart
+/// final send = getSend<SomeType>();
+/// send(SomeType());
+/// ```
 SenderFunctor<Message> getSend<Message>() {
   return SenderFunctor<Message>();
 }

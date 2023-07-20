@@ -1,6 +1,9 @@
 ## 1.0.0
 
-- Introduce contravariant listening (#58)
+- Introduce covariant listening by filtering `Listener`s contravariantly (#58)
+    - Before `Listener<SubClass>` would also receive `<SupClass>` messages which
+    would throw in `onMessage()` forcing you to only ever listen to `<SupClass>`,
+    now you can safely use subtyping of messages.
 
 ## 0.0.11
 
