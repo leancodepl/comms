@@ -1,6 +1,6 @@
 ## 1.0.1
 
-- Move bloc related apis from flutter_comms package (#60)
+- Move bloc related apis from flutter_comms package and update README (#60)
 
 ## 1.0.0
 
