@@ -1,5 +1,5 @@
 import 'package:comms/comms.dart';
-import '../listeners/product_count.dart';
+import '../messages/product_count_changed.dart';
 
 class Basket with Sender<ProductCountChangedMessage> {
   List<String> products = [];

@@ -102,6 +102,8 @@ void main() async {
   print(lightBulbB.enabled); // false
 
   lightSwitchB.enable();
+  
+  await Future<void>.delayed(Duration.zero);
 
   print(lightBulbA.enabled); // true
   print(lightBulbB.enabled); // true
@@ -201,6 +203,90 @@ creating a `Sender`.
 ```dart
 void main() {
   getSend<bool>()(true);
+}
+```
+
+## Communicating between blocs
+
+To communicate between blocs you can just use `Sender` and `Listener` mixins, for 
+more convenience there are added `ListenerCubit` or `ListenerBloc` classes and 
+`StateSender` mixin.
+
+### Creating a ListenerCubit
+
+A `ListenerCubit` works exactly like `Listener` but calls `listen` and `cancel`
+functions for you, enabling your `Cubit` to receive messages from any `Sender`
+sharing the same message type.
+
+```dart
+/// Use `ListenerCubit` instead of `Cubit`, second type parameter specifies
+/// message type to listen for.
+class LightBulbCubit with ListenerCubit<LightBulbState, LightSwitchState> {
+  LightBulbCubit() : super(LightBulbState(false));
+  
+  /// Override `onMessage` to specify how to react to messages.
+  @override
+  void onMessage(LightSwitchState message) {
+    if (message is LightSwitchEnabled) {
+      emit(LightBulbState(true));
+    } else if (message is LightSwitchDisabled) {
+      emit(LightBulbState(false));
+    }
+  }
+}
+
+class LightBulbState {
+  LightBulbState(this.enabled)
+  final bool enabled;
+}
+```
+
+### Creating a StateSender
+A `StateSender` mixin allows your bloc to send message with state every time a
+new state is emitted.
+
+```dart
+/// Add a `Sender` mixin with type of messages to send.
+class LightSwitchBloc extends Bloc<bool, LightSwitchState> 
+  with StateSender {
+  LightSwitchBloc() : super(false) {
+    on<bool>(
+      (event, emit) {
+        if (event) {
+          emit(LightSwitchEnabled());
+        } else {
+          emit(LightSwitchDisabled());
+        }
+      }
+    )
+  };
+}
+
+abstract class LightSwitchState {}
+class LightSwitchEnabled extends LightSwitchState {}
+class LightSwitchDisabled extends LightSwitchState {}
+```
+
+### Using ListenerCubit and StateSender
+
+```dart
+void main() async {
+  // Just create instances of both classes, comms will 
+  // handle connection between them.
+  final lightBulbCubit = LightBulCubit();
+  final lightSwitchBloc = LightSwitchBloc();
+
+  print(lightBulbCubit.state.enabled); // false
+
+  lightSwitchBloc.add(true);
+    
+  await Future<void>.delayed(Duration.zero);
+
+  print(lightBulbCubit.state.enabled); // true
+
+  // comms will automatically clean up resources on close
+  lightBulbCubit.close();
+  lightSwitchBloc.close();
 }
 ```
 

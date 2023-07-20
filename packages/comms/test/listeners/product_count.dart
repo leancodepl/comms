@@ -1,5 +1,7 @@
 import 'package:comms/comms.dart';
 
+import '../messages/product_count_changed.dart';
+
 class ProductCount with Listener<ProductCountChangedMessage> {
   ProductCount() {
     listen();
@@ -55,9 +57,3 @@ class ProductCountIncrementedListener with Listener<ProductCountIncremented> {
     cancel();
   }
 }
-
-class ProductCountChangedMessage {}
-
-class ProductCountIncremented extends ProductCountChangedMessage {}
-
-class ProductCountDecremented extends ProductCountChangedMessage {}
