@@ -1,3 +1,7 @@
+## 1.0.1
+
+- Move bloc related apis from flutter_comms package (#60)
+
 ## 1.0.0
 
 - Introduce covariant listening by filtering `Listener`s contravariantly (#58)
