@@ -14,3 +14,12 @@ class Basket with Sender<ProductCountChangedMessage> {
     send(ProductCountDecremented());
   }
 }
+
+class IncrementingBasket with Sender<ProductCountChangedMessage> {
+  List<String> products = [];
+
+  void add(String product) {
+    products.add(product);
+    send(ProductCountIncremented());
+  }
+}

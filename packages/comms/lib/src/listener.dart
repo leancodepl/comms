@@ -18,7 +18,7 @@ mixin Listener<Message> {
   StreamSubscription<Message>? _messageSubscription;
 
   /// Unique identifier of the [Listener]'s messageSink in [MessageSinkRegister].
-  String? _id;
+  _Contra<Message>? _id;
 
   /// Starts message receiving.
   ///

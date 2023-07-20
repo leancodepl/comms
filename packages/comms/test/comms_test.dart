@@ -8,6 +8,8 @@ int numberOfProductCountMessageSink() =>
     MessageSinkRegister().getSinksOfType<ProductCountChangedMessage>().length;
 
 void main() {
+  setUp(() => MessageSinkRegister().clear());
+
   test(
     'ProductCount message sink is added to register after it calls listen in constructor',
     () {
@@ -66,6 +68,85 @@ void main() {
       await Future<void>.delayed(Duration.zero);
 
       expect(productCount.value, basket.products.length);
+
+      productCount.dispose();
+    },
+  );
+
+  test(
+    'ProductCountIncrementedListener listens only for ProductCountIncremented',
+    () async {
+      final basket = IncrementingBasket();
+      final productCount = ProductCountIncrementedListener();
+
+      basket
+        ..add('Jeans')
+        ..add('T-shirt');
+
+      await Future<void>.delayed(Duration.zero);
+
+      expect(productCount.value, 2);
+
+      getSend<ProductCountDecremented>()(ProductCountDecremented());
+      await Future<void>.delayed(Duration.zero);
+
+      expect(productCount.value, 2);
+
+      getSend<ProductCountChangedMessage>()(ProductCountIncremented());
+      await Future<void>.delayed(Duration.zero);
+
+      expect(productCount.value, 3);
+
+      getSend<ProductCountChangedMessage>()(ProductCountChangedMessage());
+      await Future<void>.delayed(Duration.zero);
+
+      expect(productCount.value, 3);
+
+      productCount.dispose();
+    },
+  );
+
+  test(
+    'ProductCountIncrementedListener receives buffered message of exact same type',
+    () async {
+      final basket = IncrementingBasket()..add('Product');
+      final productCount = ProductCountIncrementedListener();
+
+      basket
+        ..add('Jeans')
+        ..add('T-shirt');
+
+      await Future<void>.delayed(Duration.zero);
+
+      expect(productCount.value, 3);
+
+      productCount.dispose();
+    },
+  );
+
+  test(
+    'ProductCount receives buffered message of sub type',
+    () async {
+      getSend<ProductCountIncremented>()(ProductCountIncremented());
+      final productCount = ProductCount();
+
+      await Future<void>.delayed(Duration.zero);
+
+      expect(productCount.value, 1);
+
+      productCount.dispose();
+    },
+  );
+
+  test(
+    'ProductCountIncrementedListener does not receive buffered message of super type',
+    () async {
+      getSend<ProductCountChangedMessage>()(ProductCountChangedMessage());
+      final productCount = ProductCountIncrementedListener();
+
+      await Future<void>.delayed(Duration.zero);
+
+      expect(productCount.value, 0);
 
       productCount.dispose();
     },
