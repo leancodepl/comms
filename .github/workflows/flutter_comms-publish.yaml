@@ -23,9 +23,15 @@ jobs:
       - name: Install Dart
         uses: dart-lang/setup-dart@v1
         with:
-          sdk: 3.0.6
+          sdk: stable
+      
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2.6.2
+        with:
+          channel: stable
+          cache: true
 
-      - name: Install mobile-tools
+      - name: Download mobile-tools
         uses: actions/checkout@v3
         with:
           repository: leancodepl/mobile-tools
@@ -43,7 +49,7 @@ jobs:
           echo "IS_PRERELEASE=$(is_prerelease $package_name $tag)" >> $GITHUB_ENV
 
       - name: Publish
-        run: dart pub publish -f
+        run: flutter pub publish --force
 
       - name: Create release
         uses: softprops/action-gh-release@v1
