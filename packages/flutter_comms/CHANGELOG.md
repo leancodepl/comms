@@ -1,3 +1,7 @@
+## 1.0.0
+
+- Move bloc related apis to comms package, add README (#61)
+
 ## 0.0.6+2
 
 - Fix `StateSender` to only send messages when state is actually emitted
