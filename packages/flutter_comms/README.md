@@ -1,6 +1,6 @@
 # flutter_comms
 
-[![codestyle][pub_badge_style]][pub_badge_link]
+[![flutter_comms-pub-badge]][flutter_comms-pub-badge-link] [![flutter_comms-build-badge]][flutter_comms-build-badge-link] [![codestyle][pub_badge_style]][pub_badge_link]
 
 `flutter_comms` builds on top of [comms], making it easier to implement comms pattern
 in Flutter projects.
@@ -76,6 +76,11 @@ Widget build(BuildContext context) {
 }
 ```
 
+
+[flutter_comms-pub-badge]: https://img.shields.io/pub/v/flutter_comms
+[flutter_comms-pub-badge-link]: https://pub.dev/packages/flutter_comms
+[flutter_comms-build-badge]: https://img.shields.io/github/actions/workflow/status/leancodepl/comms/flutter_comms-prepare.yaml?branch=master
+[flutter_comms-build-badge-link]: https://github.com/leancodepl/comms/actions/workflows/flutter_comms-prepare.yaml
 [pub_badge_style]: https://img.shields.io/badge/style-leancode__lint-black
 [pub_badge_link]: https://pub.dartlang.org/packages/leancode_lint
 [comms]: https://pub.dev/packages/comms
