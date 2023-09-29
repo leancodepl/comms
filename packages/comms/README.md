@@ -290,11 +290,95 @@ void main() async {
 }
 ```
 
+### Real life example
 
+Most common bloc that each app has is `AuthBloc` or `AuthCubit`. It's important
+for all other blocs to know and react to whether user is authenticated or not.
+With `comms`, all you need to do is add a `StateSender` mixin to the auth bloc,
+which allows every other bloc to listen for `AuthState` changes.
+
+```dart
+class AuthCubit extends Cubit<AuthState> with StateSender {...}
+```
+
+For example, `UserProfileCubit` fetches the user's profile on sign-in and
+clears that data on sign-out.
+
+```dart
+class UserProfileCubit extends ListenerCubit<UserProfileState, AuthState> {
+  UserProfileCubit({
+    required UserRepository repository,
+  }) : _repository = repository,
+       super(const UserProfileState.initial());
+  
+  final UserRepository _repository;
+
+  @override
+  void onInitialMessage(AuthState message) => onMessage(message);
+
+  @override
+  void onMessage(AuthState message) {
+    if (message is AuthStateAuthenticated) {
+      fetchProfile();
+    } else {
+      emit(const UserProfileState.noUser())
+    }
+  }
+  
+  Future<void> fetchProfile() async {...}
+}
+```
+
+Using conventional streams and sinks the same cubit would look like this:
+
+```dart
+class UserProfileCubit extends Cubit<UserProfileState> {
+  UserProfileCubit({
+    required UserRepository repository,
+    required Stream<AuthState> authStateStream,
+    required AuthState initialAuthState,
+  })  : _repository = repository,
+        _authStateStream = authStateStream,
+        super(const UserProfileState.initial()) {
+    _init(initialAuthState: initialAuthState);
+  }
+  
+  final UserRepository _repository;
+
+  final Stream<AuthState> _authStateStream;
+  StreamSubscription<AuthState>? _authStateStreamSubscription;
+
+  void _init({required AuthState message}) {
+    onAuthState(initialAuthState);
+    _authStateStreamSubscription = _authStateStream.listen(onAuthState)
+  }
+
+  void onAuthState(AuthState authState) {
+    if (authState is AuthStateAuthenticated) {
+      fetchProfile();
+    } else {
+      emit(const UserProfileState.noUser())
+    }
+  }
+  
+  Future<void> fetchProfile() async {...}
+
+  @override
+  Future<void> close() async {
+    _authStateStreamSubscription?.cancel();
+    super.close();
+  }
+}
+```
+
+This required 15 more lines of code, not to mention that you also need to pass 
+the `AuthCubit`'s stream and initial state in constructor which is not needed 
+when using comms.
+
+[pub_badge_style]: https://img.shields.io/badge/style-leancode__lint-black
+[pub_badge_link]: https://pub.dartlang.org/packages/leancode_lint
+[flutter_comms]: https://pub.dev/packages/flutter_comms
 [comms-pub-badge]: https://img.shields.io/pub/v/comms
 [comms-pub-badge-link]: https://pub.dev/packages/comms
 [comms-build-badge]: https://img.shields.io/github/actions/workflow/status/leancodepl/comms/comms-prepare.yaml?branch=master
 [comms-build-badge-link]: https://github.com/leancodepl/comms/actions/workflows/comms-prepare.yaml
-[pub_badge_style]: https://img.shields.io/badge/style-leancode__lint-black
-[pub_badge_link]: https://pub.dartlang.org/packages/leancode_lint
-[flutter_comms]: https://pub.dev/packages/flutter_comms
