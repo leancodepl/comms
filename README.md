@@ -1,4 +1,4 @@
-## comms
+# comms
 
 Predictable and simple communication pattern between classes.
 
