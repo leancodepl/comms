@@ -294,15 +294,15 @@ void main() async {
 
 Most common bloc that each app has is `AuthBloc` or `AuthCubit`. It's important
 for all other blocs to know and react to whether user is authenticated or not.
-All you need to do is add a `StateSender` mixin which allows every other bloc
-to listen for `AuthState` changes.
+With `comms`, all you need to do is add a `StateSender` mixin to the auth bloc,
+which allows every other bloc to listen for `AuthState` changes.
 
 ```dart
 class AuthCubit extends Cubit<AuthState> with StateSender {...}
 ```
 
-For example `UserProfileCubit` will fetch user's profile on sign in and
-should clear that data on sign out.
+For example, `UserProfileCubit` fetches the user's profile on sign-in and
+clears that data on sign-out.
 
 ```dart
 class UserProfileCubit extends ListenerCubit<UserProfileState, AuthState> {
@@ -318,10 +318,11 @@ class UserProfileCubit extends ListenerCubit<UserProfileState, AuthState> {
 
   @override
   void onMessage(AuthState message) {
-    message.maybeWhen<void>(
-      authenticated: fetchProfile,
-      orElse: () => emit(const UserProfileState.noUser()),
-    );
+    if (message is AuthStateAuthenticated) {
+      fetchProfile();
+    } else {
+      emit(const UserProfileState.noUser())
+    }
   }
   
   Future<void> fetchProfile() async {...}
@@ -353,10 +354,11 @@ class UserProfileCubit extends Cubit<UserProfileState> {
   }
 
   void onAuthState(AuthState authState) {
-    authState.maybeWhen<void>(
-      authenticated: fetchProfile,
-      orElse: () => emit(const UserProfileState.noUser()),
-    );
+    if (authState is AuthStateAuthenticated) {
+      fetchProfile();
+    } else {
+      emit(const UserProfileState.noUser())
+    }
   }
   
   Future<void> fetchProfile() async {...}
