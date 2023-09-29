@@ -1,6 +1,6 @@
 # comms
 
-[![codestyle][pub_badge_style]][pub_badge_link]
+[![comms-pub-badge]][comms-pub-badge-link] [![comms-build-badge]][comms-build-badge-link] [![codestyle][pub_badge_style]][pub_badge_link]
 
 `comms` is a simple communication pattern abstraction on streams, created for
 communication between any classes. It allows `Listener`s to easily react to
@@ -290,6 +290,11 @@ void main() async {
 }
 ```
 
+
+[comms-pub-badge]: https://img.shields.io/pub/v/comms
+[comms-pub-badge-link]: https://pub.dev/packages/comms
+[comms-build-badge]: https://img.shields.io/github/actions/workflow/status/leancodepl/comms/comms-prepare.yaml?branch=master
+[comms-build-badge-link]: https://github.com/leancodepl/comms/actions/workflows/comms-prepare.yaml
 [pub_badge_style]: https://img.shields.io/badge/style-leancode__lint-black
 [pub_badge_link]: https://pub.dartlang.org/packages/leancode_lint
 [flutter_comms]: https://pub.dev/packages/flutter_comms
