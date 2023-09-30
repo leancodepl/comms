@@ -93,7 +93,7 @@ class AuthNotifier with ChangeNotifier, Sender<AuthError> {
   bool _authenticated;
   bool get authenticated => _authenticated;
 
-  Future<void> login(String username, String password) async {
+  Future<void> logIn(String username, String password) async {
     try {
       final loggedIn = await _authRepository.login(username, password);
 
