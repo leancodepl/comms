@@ -11,7 +11,7 @@ For use in Flutter projects, check out [flutter_comms].
 ## Installation
 
 ```console
-$ dart pub add comms
+dart pub add comms
 ```
 
 ## Basic usage
