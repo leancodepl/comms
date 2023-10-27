@@ -13,13 +13,13 @@ on:
 
 jobs:
   main:
-    name: Flutter ${{ matrix.channel }}${{ matrix.version }}
+    name: Flutter ${{ matrix.flutter-version }}
     runs-on: ubuntu-latest
 
     strategy:
       fail-fast: false
       matrix:
-        flutter-version: ['3.10.x']
+        flutter-version: ['3.13.x']
 
     defaults:
       run:
@@ -30,10 +30,9 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install Flutter
-        uses: subosito/flutter-action@v2.6.2
+        uses: subosito/flutter-action@v2
         with:
-          channel: ${{ matrix.channel }}
-          flutter-version: ${{ matrix.version }}
+          flutter-version: ${{ matrix.flutter-version }}
 
       - name: flutter pub get
         run: flutter pub get

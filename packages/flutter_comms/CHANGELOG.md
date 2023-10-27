@@ -1,3 +1,9 @@
+## 1.1.0
+
+- Add example of sending one time events from state management to widgets in README (#69)
+
+- Add common README for packages (#68)
+
 ## 1.0.0
 
 - Move bloc related apis to comms package, add README (#61)

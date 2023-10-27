@@ -23,7 +23,7 @@ jobs:
       - name: Install Dart
         uses: dart-lang/setup-dart@v1
         with:
-          sdk: 3.0.6
+          sdk: stable
 
       - name: Install mobile-tools
         uses: actions/checkout@v3

@@ -1,3 +1,9 @@
+## 1.1.0
+
+- Add common README for packages (#68)
+
+- Add real life example to README (#67)
+
 ## 1.0.1
 
 - Move bloc related apis from flutter_comms package and update README (#60)

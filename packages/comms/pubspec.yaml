@@ -1,10 +1,10 @@
 name: comms
 description: Simple communication pattern abstraction on streams, created for communication between logic classes.
-version: 1.0.1
+version: 1.1.0
 homepage: https://github.com/leancodepl/comms
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.1.0 <4.0.0"
 
 dependencies:
   bloc: ^8.1.2
@@ -12,5 +12,5 @@ dependencies:
   meta: ^1.9.1
 
 dev_dependencies:
-  leancode_lint: ^4.0.0+1
+  leancode_lint: ^6.0.0
   test: ^1.17.5
