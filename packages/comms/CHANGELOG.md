@@ -1,3 +1,7 @@
+## 1.2.0
+
+- Bump `bloc` to `9.0.0`.
+
 ## 1.1.0
 
 - Add common README for packages (#68)
