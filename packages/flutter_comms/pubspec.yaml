@@ -8,7 +8,7 @@ environment:
   flutter: ">=3.13.0"
 
 dependencies:
-  comms: ^1.1.0
+  comms: ^1.2.0
   flutter:
     sdk: flutter
   flutter_hooks: ^0.20.3
