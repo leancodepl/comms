@@ -1,3 +1,8 @@
+## 1.2.0
+
+- Bump `comms` to `1.2.0`
+- Bump `bloc` to `9.0.0`
+
 ## 1.1.0
 
 - Add example of sending one time events from state management to widgets in README (#69)
