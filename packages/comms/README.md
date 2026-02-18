@@ -1,6 +1,8 @@
-<a href="https://leancode.co/?utm_source=github.com&utm_medium=referral&utm_campaign=comms" align="center">
-  <img alt="comms" src="https://github.com/user-attachments/assets/310678d5-23e0-4780-add7-624a865183e1" />
-</a>
+<div align="center">
+
+[![Banner][banner-img]][leancode-landing]
+
+</div>
 
 # comms
 
@@ -379,6 +381,36 @@ This required 15 more lines of code, not to mention that you also need to pass
 the `AuthCubit`'s stream and initial state in constructor which is not needed 
 when using comms.
 
+---
+
+## 🛠️ Maintained by LeanCode
+<div align="center">
+
+  [<img src="https://leancodepublic.blob.core.windows.net/public/wide.png" alt="LeanCode Logo" height="100" />][leancode-landing]
+
+</div>
+
+This package is built with 💙 by **[LeanCode][leancode-landing]**.
+We are **top-tier experts** focused on Flutter Enterprise solutions.
+
+### Why LeanCode?
+
+- **Creators of [Patrol][patrol-landing]** – the next-gen testing framework for Flutter.
+
+- **Production-Ready** – We use this package in apps with millions of users.
+- **Full-Cycle Product Development** – We take your product from scratch to long-term maintenance.
+
+<div align="center">
+  <br />
+
+  **Need help with your Flutter project?**
+
+  [**👉 Hire our team**][leancode-estimate]
+  &nbsp;&nbsp;•&nbsp;&nbsp;
+  [Check our other packages][leancode-packages]
+
+</div>
+
 [pub_badge_style]: https://img.shields.io/badge/style-leancode__lint-black
 [pub_badge_link]: https://pub.dartlang.org/packages/leancode_lint
 [flutter_comms]: https://pub.dev/packages/flutter_comms
@@ -386,3 +418,8 @@ when using comms.
 [comms-pub-badge-link]: https://pub.dev/packages/comms
 [comms-build-badge]: https://img.shields.io/github/actions/workflow/status/leancodepl/comms/comms-prepare.yaml?branch=master
 [comms-build-badge-link]: https://github.com/leancodepl/comms/actions/workflows/comms-prepare.yaml
+[banner-img]: https://raw.githubusercontent.com/leancodepl/comms/refs/heads/master/packages/comms/docs/imgs/banner.png
+[leancode-landing]: https://leancode.co/?utm_source=github.com&utm_medium=referral&utm_campaign=comms
+[leancode-estimate]: https://leancode.co/get-estimate?utm_source=github.com&utm_medium=referral&utm_campaign=comms
+[leancode-packages]: https://pub.dev/packages?q=publisher%3Aleancode.co&sort=downloads
+[patrol-landing]: https://patrol.leancode.co/?utm_source=github.com&utm_medium=referral&utm_campaign=comms
