@@ -418,7 +418,7 @@ We are **top-tier experts** focused on Flutter Enterprise solutions.
 [comms-pub-badge-link]: https://pub.dev/packages/comms
 [comms-build-badge]: https://img.shields.io/github/actions/workflow/status/leancodepl/comms/comms-prepare.yaml?branch=master
 [comms-build-badge-link]: https://github.com/leancodepl/comms/actions/workflows/comms-prepare.yaml
-[banner-img]: https://raw.githubusercontent.com/leancodepl/comms/refs/heads/master/packages/comms/docs/imgs/banner.png
+[banner-img]: https://raw.githubusercontent.com/leancodepl/comms/refs/heads/master/packages/comms/doc/imgs/banner.png
 [leancode-landing]: https://leancode.co/?utm_source=github.com&utm_medium=referral&utm_campaign=comms
 [leancode-estimate]: https://leancode.co/get-estimate?utm_source=github.com&utm_medium=referral&utm_campaign=comms
 [leancode-packages]: https://pub.dev/packages?q=publisher%3Aleancode.co&sort=downloads
