@@ -172,10 +172,10 @@ class MyListener with MultiListener {
   }
 
   @override
-  final List<ListenerDelegate> listenerDelegates = [
-    ListenerDelegate<CounterMessage>(),
-    ListenerDelegate<AuthMessage>(),
-  ];
+  List<ListenerDelegate> get listenerDelegates => [
+        ListenerDelegate<CounterMessage>(),
+        ListenerDelegate<AuthMessage>(),
+      ];
 
   @override
   void onMessage(dynamic message) {
