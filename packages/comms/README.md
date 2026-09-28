@@ -192,12 +192,13 @@ class MyListener with MultiListener {
 ```
 
 > [!WARNING]
-> Do not implement `listenerDelegates` as a getter that returns a new list,
+> Do not implement `listenerDelegates` as a getter that creates new delegates,
 > such as `get listenerDelegates => [ListenerDelegate<CounterMessage>()]`.
-> `listen` and `cancel` both read `listenerDelegates`, and each delegate keeps
-> its own registration. With a getter, `cancel` receives new delegates that
-> were never registered, so it does nothing. The delegates that `listen`
-> registered keep receiving messages after the listener is disposed.
+> Each `ListenerDelegate` instance holds its own registration, and `listen` and
+> `cancel` both read `listenerDelegates`. When every read creates new instances,
+> `cancel` receives delegates that were never registered and does nothing. The
+> delegates that `listen` registered keep receiving messages after the listener
+> is disposed.
 >
 > Call `listen` only once per instance. A second call on the same delegates
 > throws a `LateInitializationError`, even after `cancel`.
