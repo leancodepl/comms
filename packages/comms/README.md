@@ -171,19 +171,36 @@ class MyListener with MultiListener {
     listen();
   }
 
+  /// Store the delegates in a field so that `cancel` sees the same instances
+  /// that `listen` registered.
   @override
-  List<ListenerDelegate> get listenerDelegates => [
-        ListenerDelegate<CounterMessage>(),
-        ListenerDelegate<AuthMessage>(),
-      ];
+  final List<ListenerDelegate> listenerDelegates = [
+    ListenerDelegate<CounterMessage>(),
+    ListenerDelegate<AuthMessage>(),
+  ];
 
   @override
   void onMessage(dynamic message) {
     if (message is CounterMessage) {...}
     if (message is AuthMessage) {...}
   }
+
+  void dispose() {
+    cancel();
+  }
 }
 ```
+
+> [!WARNING]
+> Do not implement `listenerDelegates` as a getter that returns a new list,
+> such as `get listenerDelegates => [ListenerDelegate<CounterMessage>()]`.
+> `listen` and `cancel` both read `listenerDelegates`, and each delegate keeps
+> its own registration. With a getter, `cancel` receives new delegates that
+> were never registered, so it does nothing. The delegates that `listen`
+> registered keep receiving messages after the listener is disposed.
+>
+> Call `listen` only once per instance. A second call on the same delegates
+> throws a `LateInitializationError`, even after `cancel`.
 
 ## Custom Senders
 To create a custom `Sender` for example to send multiple message types, you
