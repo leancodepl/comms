@@ -171,8 +171,6 @@ class MyListener with MultiListener {
     listen();
   }
 
-  /// Store the delegates in a field so that `cancel` sees the same instances
-  /// that `listen` registered.
   @override
   final List<ListenerDelegate> listenerDelegates = [
     ListenerDelegate<CounterMessage>(),
@@ -186,22 +184,11 @@ class MyListener with MultiListener {
   }
 
   void dispose() {
+    /// Call `cancel` to stop listening and clean up.
     cancel();
   }
 }
 ```
-
-> [!WARNING]
-> Do not implement `listenerDelegates` as a getter that creates new delegates,
-> such as `get listenerDelegates => [ListenerDelegate<CounterMessage>()]`.
-> Each `ListenerDelegate` instance holds its own registration, and `listen` and
-> `cancel` both read `listenerDelegates`. When every read creates new instances,
-> `cancel` receives delegates that were never registered and does nothing. The
-> delegates that `listen` registered keep receiving messages after the listener
-> is disposed.
->
-> Call `listen` only once per instance. A second call on the same delegates
-> throws a `LateInitializationError`, even after `cancel`.
 
 ## Custom Senders
 To create a custom `Sender` for example to send multiple message types, you

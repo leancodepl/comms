@@ -1,3 +1,9 @@
+## 1.3.0
+
+- Fix `MultiListener.cancel()` doing nothing when `listenerDelegates` creates new delegates on every read, such as a getter returning a list literal. Such listeners now stop receiving messages after `cancel()` (#78)
+- Allow calling `MultiListener.listen()` more than once. A repeated call replaces the previous registration instead of throwing `LateInitializationError` or registering twice (#78)
+- `MultiListener` declares an instance field, so a class with a `const` constructor can no longer mix it in (#78)
+
 ## 1.2.0
 
 - Bump `bloc` to `9.0.0`.
