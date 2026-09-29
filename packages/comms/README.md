@@ -182,11 +182,6 @@ class MyListener with MultiListener {
     if (message is CounterMessage) {...}
     if (message is AuthMessage) {...}
   }
-
-  void dispose() {
-    /// Call `cancel` to stop listening and clean up.
-    cancel();
-  }
 }
 ```
 

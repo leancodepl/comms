@@ -8,8 +8,6 @@ import 'messages/product_count_changed.dart';
 int numberOfSinks<Message>() =>
     MessageSinkRegister().getSinksOfType<Message>().length;
 
-Future<void> nextEventLoop() => Future<void>.delayed(Duration.zero);
-
 void main() {
   setUp(() => MessageSinkRegister().clear());
 
@@ -43,13 +41,13 @@ void main() {
 
         getSend<ProductCountChangedMessage>()(ProductCountIncremented());
         getSend<BasketClearedMessage>()(BasketClearedMessage());
-        await nextEventLoop();
+        await pumpEventQueue();
 
         expect(listener.messages, hasLength(2));
 
         listener.stop();
         getSend<BasketClearedMessage>()(BasketClearedMessage());
-        await nextEventLoop();
+        await pumpEventQueue();
 
         expect(listener.messages, hasLength(2));
       });
@@ -68,7 +66,7 @@ void main() {
         expect(numberOfSinks<ProductCountChangedMessage>(), 1);
 
         getSend<ProductCountChangedMessage>()(ProductCountIncremented());
-        await nextEventLoop();
+        await pumpEventQueue();
 
         expect(listener.messages, hasLength(1));
 
@@ -83,7 +81,7 @@ void main() {
           ..start();
 
         getSend<BasketClearedMessage>()(BasketClearedMessage());
-        await nextEventLoop();
+        await pumpEventQueue();
 
         expect(listener.messages, hasLength(1));
 
