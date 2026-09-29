@@ -5,8 +5,8 @@ part of '../comms.dart';
 class ListenerDelegate<T> with Listener<T> {
   ListenerDelegate();
 
-  late final OnMessage<T> _onMessage;
-  late final OnMessage<T> _onInitialMessage;
+  late OnMessage<T> _onMessage;
+  late OnMessage<T> _onInitialMessage;
 
   @protected
   @nonVirtual
@@ -40,19 +40,26 @@ class ListenerDelegate<T> with Listener<T> {
 mixin MultiListener {
   List<ListenerDelegate<dynamic>> get listenerDelegates;
 
+  /// The delegates registered by the last [listen], cancelled by [cancel].
+  ///
+  /// [listenerDelegates] may return new instances on every read, so [cancel]
+  /// has to use these rather than reading [listenerDelegates] again.
+  final _registeredDelegates = <ListenerDelegate<dynamic>>[];
+
   /// Starts message receiving.
   ///
   /// Registers message sinks based on [listenerDelegates] in
-  /// [MessageSinkRegister].
+  /// [MessageSinkRegister]. Calling it again cancels the previous registration
+  /// first.
   @protected
   @nonVirtual
-  void listen() => listenerDelegates.forEach(_listen);
-
-  void _listen(ListenerDelegate<dynamic> listenerDelegate) => listenerDelegate
-    .._init(
-      onMessage,
-      onInitialMessage,
-    );
+  void listen() {
+    cancel();
+    for (final listenerDelegate in listenerDelegates) {
+      _registeredDelegates
+          .add(listenerDelegate.._init(onMessage, onInitialMessage));
+    }
+  }
 
   /// Called every time a new [message] of type specified in [listenerDelegates]
   /// is received.
@@ -69,8 +76,10 @@ mixin MultiListener {
   /// Removes message sinks from [MessageSinkRegister].
   @protected
   @nonVirtual
-  void cancel() => listenerDelegates.forEach(_cancel);
-
-  void _cancel(ListenerDelegate<dynamic> listenerDelegate) =>
+  void cancel() {
+    for (final listenerDelegate in _registeredDelegates) {
       listenerDelegate.cancel();
+    }
+    _registeredDelegates.clear();
+  }
 }
